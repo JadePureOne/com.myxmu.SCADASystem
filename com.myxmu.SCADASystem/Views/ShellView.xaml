@@ -5,20 +5,19 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:com.myxmu.SCADASystem.Views"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:com.myxmu.SCADASystem.ViewModels"
-    Title="ShellView"
+    Title="SCADA喷涂工艺"
     Width="800"
-    Height="450"
+    Height="500"
     d:DataContext="{d:DesignInstance vm:ShellViewModel}"
-    Background="{DynamicResource MahApps.Brushes.Accent4}"
     FontFamily="Microsoft YaHei"
     TextElement.FontSize="16"
     TextElement.FontWeight="Regular"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
-    <!--<Window.DataContext>
-        <vm:ShellViewModel />
-    </Window.DataContext>-->
-    <Grid />
+    <materialDesign:DialogHost Identifier="ShellDialog">
+        <ContentControl x:Name="container" />
+    </materialDesign:DialogHost>
 </mah:MetroWindow>

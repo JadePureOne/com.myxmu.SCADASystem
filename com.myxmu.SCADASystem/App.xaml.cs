@@ -47,6 +47,9 @@ namespace com.myxmu.SCADASystem
             services.AddSingleton<ShellView>();
             services.AddSingleton<ShellViewModel>();
 
+            services.AddSingleton<LoginView>();
+            services.AddSingleton<LoginViewModel>();
+
             return services.BuildServiceProvider();
 
         }
