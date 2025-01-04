@@ -8,6 +8,7 @@ using System.Windows;
 using com.myxmu.SCADASystem.Models;
 using Common.Helpers;
 using CommunityToolkit.Mvvm.Input;
+using System.ComponentModel;
 
 namespace com.myxmu.SCADASystem.ViewModels
 {
@@ -18,6 +19,33 @@ namespace com.myxmu.SCADASystem.ViewModels
 
         [ObservableProperty]
         private string _password;
+
+        //extend IDataErrorInfo
+        //public string Error => null;
+        //public string this[string columnName]
+        //{
+        //    get
+        //    {
+        //        string result = null;
+        //        switch (columnName)
+        //        {
+        //            case nameof(UserName):
+        //                if (string.IsNullOrWhiteSpace(UserName))
+        //                    result = "用户名不能为空";
+        //                break;
+        //            case nameof(Password):
+        //                if (string.IsNullOrWhiteSpace(Password))
+        //                    result = "密码不能为空";
+        //                break;
+        //        }
+        //        return result;
+        //    }
+
+
+        public bool CanLogin => !string.IsNullOrWhiteSpace(UserName) && !string.IsNullOrWhiteSpace(Password);
+
+
+
 
         [RelayCommand]
         private void Login()
