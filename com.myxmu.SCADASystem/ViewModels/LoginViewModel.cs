@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using com.myxmu.SCADASystem.Models;
+using Common.Helpers;
 using CommunityToolkit.Mvvm.Input;
 
 namespace com.myxmu.SCADASystem.ViewModels
@@ -20,7 +22,24 @@ namespace com.myxmu.SCADASystem.ViewModels
         [RelayCommand]
         private void Login()
         {
-            MessageBox.Show($"username:{UserName} password:{Password}");
+            if (string.IsNullOrEmpty(UserName) || string.IsNullOrEmpty(Password))
+            {
+                MessageBox.Show("密码或用户名为空"); 
+                return;
+            }
+
+            var userList = SqlSugarHelper.Db.Queryable<UserModel>().Where(e => e.UserName == UserName && e.Password == Password)
+                .ToList();
+
+            if (userList.Count>0)
+            {
+                MessageBox.Show("login success");
+            }
+            else
+            {
+                MessageBox.Show("Login false,check name or pwd");
+            }
+
         }
     }
 }
