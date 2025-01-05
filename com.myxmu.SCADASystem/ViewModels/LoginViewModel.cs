@@ -9,41 +9,81 @@ using com.myxmu.SCADASystem.Models;
 using Common.Helpers;
 using CommunityToolkit.Mvvm.Input;
 using System.ComponentModel;
+using System.Collections;
 
 namespace com.myxmu.SCADASystem.ViewModels
 {
-    public partial class LoginViewModel:ObservableObject
+    public partial class LoginViewModel:ObservableObject, INotifyDataErrorInfo
     {
-        [ObservableProperty]
         private string _userName;
-
-        [ObservableProperty]
         private string _password;
 
-        //extend IDataErrorInfo
-        //public string Error => null;
-        //public string this[string columnName]
-        //{
-        //    get
-        //    {
-        //        string result = null;
-        //        switch (columnName)
-        //        {
-        //            case nameof(UserName):
-        //                if (string.IsNullOrWhiteSpace(UserName))
-        //                    result = "用户名不能为空";
-        //                break;
-        //            case nameof(Password):
-        //                if (string.IsNullOrWhiteSpace(Password))
-        //                    result = "密码不能为空";
-        //                break;
-        //        }
-        //        return result;
-        //    }
+        private readonly Dictionary<string, List<string>> _errors = new();
 
+        public string UserName
+        {
+            get => _userName;
+            set
+            {
+                SetProperty(ref _userName, value);
+                ValidateProperty(nameof(UserName), value);
+            }
+        }
 
-        public bool CanLogin => !string.IsNullOrWhiteSpace(UserName) && !string.IsNullOrWhiteSpace(Password);
+        public string Password
+        {
+            get => _password;
+            set
+            {
+                SetProperty(ref _password, value);
+                ValidateProperty(nameof(Password), value);
+            }
+        }
 
+        public bool CanLogin => !HasErrors;
+
+        private void ValidateProperty(string propertyName, string value)
+        {
+            if (_errors.ContainsKey(propertyName))
+                _errors.Remove(propertyName);
+
+            switch (propertyName)
+            {
+                case nameof(UserName):
+                    if (string.IsNullOrWhiteSpace(value))
+                        AddError(propertyName, "用户名不能为空");
+                    else if (value.Length < 3)
+                        AddError(propertyName, "用户名长度必须大于等于3个字符");
+                    break;
+
+                case nameof(Password):
+                    if (string.IsNullOrWhiteSpace(value))
+                        AddError(propertyName, "密码不能为空");
+                    else if (value.Length < 6)
+                        AddError(propertyName, "密码长度必须大于等于6个字符");
+                    break;
+            }
+
+            ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
+            OnPropertyChanged(nameof(CanLogin));
+        }
+
+        private void AddError(string propertyName, string error)
+        {
+            if (!_errors.ContainsKey(propertyName))
+                _errors[propertyName] = new List<string>();
+
+            _errors[propertyName].Add(error);
+        }
+
+        public IEnumerable GetErrors(string propertyName)
+        {
+            return string.IsNullOrEmpty(propertyName) ? null : _errors.GetValueOrDefault(propertyName);
+        }
+
+        public bool HasErrors => _errors.Count > 0;
+
+        public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
 
 
 
