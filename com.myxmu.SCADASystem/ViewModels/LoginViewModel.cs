@@ -15,9 +15,16 @@ namespace com.myxmu.SCADASystem.ViewModels
 {
     public partial class LoginViewModel:ObservableObject, INotifyDataErrorInfo
     {
-        private string _userName;
-        private string _password;
+        public LoginViewModel()
+        {
+            // 初始化时主动触发校验
+            ValidateProperty(nameof(UserName), UserName);
+            ValidateProperty(nameof(Password), Password);
+        }
 
+        private string _userName = string.Empty; // 确保初始值为空字符串
+        private string _password = string.Empty;
+        
         private readonly Dictionary<string, List<string>> _errors = new();
 
         public string UserName
@@ -51,14 +58,14 @@ namespace com.myxmu.SCADASystem.ViewModels
             {
                 case nameof(UserName):
                     if (string.IsNullOrWhiteSpace(value))
-                        AddError(propertyName, "用户名不能为空");
+                        AddError(propertyName, "必填");
                     else if (value.Length < 3)
                         AddError(propertyName, "用户名长度必须大于等于3个字符");
                     break;
 
                 case nameof(Password):
                     if (string.IsNullOrWhiteSpace(value))
-                        AddError(propertyName, "密码不能为空");
+                        AddError(propertyName, "必填");
                     else if (value.Length < 6)
                         AddError(propertyName, "密码长度必须大于等于6个字符");
                     break;

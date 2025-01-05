@@ -8,62 +8,85 @@ namespace Common.Helpers
     /// </summary>
     public class PasswordBoxHelper
     {
-        /// <summary>
-        /// 获取 <see cref="PasswordProperty"/> 的值。
-        /// </summary>
-        /// <param name="obj">目标 <see cref="DependencyObject"/>。</param>
-        /// <returns>密码字符串。</returns>
-        public static string GetPassword(DependencyObject obj)
-        {
-            return (string)obj.GetValue(PasswordProperty);
-        }
-
-        /// <summary>
-        /// 设置 <see cref="PasswordProperty"/> 的值。
-        /// </summary>
-        /// <param name="obj">目标 <see cref="DependencyObject"/>。</param>
-        /// <param name="value">要设置的密码字符串。</param>
-        public static void SetPassword(DependencyObject obj, string value)
-        {
-            obj.SetValue(PasswordProperty, value);
-        }
-
-        /// <summary>
-        /// 注册 Password 附加属性。
-        /// </summary>
-        public static readonly DependencyProperty PasswordProperty =
-            DependencyProperty.RegisterAttached("Password", typeof(string), typeof(PasswordBoxHelper), new PropertyMetadata("",
-                new PropertyChangedCallback(OnPasswordChanged)));
         
+        public static readonly DependencyProperty PasswordProperty =
+            DependencyProperty.RegisterAttached(
+                "Password",
+                typeof(string),
+                typeof(PasswordBoxHelper),
+                new FrameworkPropertyMetadata(string.Empty, OnPasswordPropertyChanged));
 
-        /// <summary>
-        /// 当 <see cref="PasswordProperty"/> 改变时调用。
-        /// </summary>
-        /// <param name="d">目标 <see cref="DependencyObject"/>。</param>
-        /// <param name="e">属性更改事件参数。</param>
-        private static void OnPasswordChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        public static readonly DependencyProperty AttachProperty =
+            DependencyProperty.RegisterAttached(
+                "Attach",
+                typeof(bool),
+                typeof(PasswordBoxHelper),
+                new PropertyMetadata(false, OnAttachPropertyChanged));
+
+        private static readonly DependencyProperty IsUpdatingProperty =
+            DependencyProperty.RegisterAttached(
+                "IsUpdating",
+                typeof(bool),
+                typeof(PasswordBoxHelper));
+
+        public static string GetPassword(DependencyObject obj) =>
+            (string)obj.GetValue(PasswordProperty);
+
+        public static void SetPassword(DependencyObject obj, string value) =>
+            obj.SetValue(PasswordProperty, value);
+
+        public static bool GetAttach(DependencyObject obj) =>
+            (bool)obj.GetValue(AttachProperty);
+
+        public static void SetAttach(DependencyObject obj, bool value) =>
+            obj.SetValue(AttachProperty, value);
+
+        private static bool GetIsUpdating(DependencyObject obj) =>
+            (bool)obj.GetValue(IsUpdatingProperty);
+
+        private static void SetIsUpdating(DependencyObject obj, bool value) =>
+            obj.SetValue(IsUpdatingProperty, value);
+
+        private static void OnPasswordPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (d is PasswordBox passwordBox)
             {
-                // 移除旧的事件处理程序，防止重复添加
                 passwordBox.PasswordChanged -= PasswordBox_PasswordChanged;
-                // 添加新的事件处理程序
+
+                if (!GetIsUpdating(passwordBox))
+                {
+                    passwordBox.Password = (string)e.NewValue;
+                }
+
                 passwordBox.PasswordChanged += PasswordBox_PasswordChanged;
             }
         }
 
-        /// <summary>
-        /// 当 <see cref="PasswordBox"/> 的密码改变时调用。
-        /// </summary>
-        /// <param name="sender">事件源。</param>
-        /// <param name="e">路由事件参数。</param>
+        private static void OnAttachPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is PasswordBox passwordBox)
+            {
+                if ((bool)e.OldValue)
+                {
+                    passwordBox.PasswordChanged -= PasswordBox_PasswordChanged;
+                }
+
+                if ((bool)e.NewValue)
+                {
+                    passwordBox.PasswordChanged += PasswordBox_PasswordChanged;
+                }
+            }
+        }
+
         private static void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
         {
             if (sender is PasswordBox passwordBox)
             {
-                // 更新 Password 附加属性的值
+                SetIsUpdating(passwordBox, true);
                 SetPassword(passwordBox, passwordBox.Password);
+                SetIsUpdating(passwordBox, false);
             }
         }
     }
+    
 }
