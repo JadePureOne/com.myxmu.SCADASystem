@@ -61,11 +61,7 @@
                     <Binding
                         Path="UserName"
                         UpdateSourceTrigger="PropertyChanged"
-                        ValidatesOnDataErrors="True">
-                        <Binding.ValidationRules>
-                            <rule:NotEmptyValidationRule ValidationStep="UpdatedValue" />
-                        </Binding.ValidationRules>
-                    </Binding>
+                        ValidatesOnDataErrors="True" />
                 </TextBox.Text>
             </TextBox>
             <PasswordBox
@@ -99,14 +95,8 @@
                 Background="#47a0ff"
                 Command="{Binding LoginCommand}"
                 Content="登录"
-                Style="{StaticResource MaterialDesignRaisedButton}">
-                <Button.IsEnabled>
-                    <MultiBinding Converter="{StaticResource LoginEnabledConverter}">
-                        <Binding Path="UserName" />
-                        <Binding Path="Password" />
-                    </MultiBinding>
-                </Button.IsEnabled>
-            </Button>
+                IsEnabled="{Binding CanLogin}"
+                Style="{StaticResource MaterialDesignRaisedButton}" />
         </StackPanel>
     </Grid>
 </UserControl>
