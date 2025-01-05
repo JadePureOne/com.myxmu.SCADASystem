@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Configuration;
 using System.Data;
 using System.Windows;
+using com.myxmu.SCADASystem.Services;
 
 namespace com.myxmu.SCADASystem
 {
@@ -42,6 +43,9 @@ namespace com.myxmu.SCADASystem
         {
 
             ServiceCollection services = new();
+            
+            //inject services
+            services.AddSingleton<UserSession>();
 
             // 注册视图和视图模型
             services.AddSingleton<ShellView>();
@@ -49,6 +53,9 @@ namespace com.myxmu.SCADASystem
 
             services.AddSingleton<LoginView>();
             services.AddSingleton<LoginViewModel>();
+
+            services.AddSingleton<MainView>();
+            services.AddSingleton<MainViewModel>();
 
             return services.BuildServiceProvider();
 

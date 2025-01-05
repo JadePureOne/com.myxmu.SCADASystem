@@ -1,30 +1,32 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using com.myxmu.SCADASystem.Messages;
 using com.myxmu.SCADASystem.Models;
+using com.myxmu.SCADASystem.Services;
 using Common.Helpers;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System.ComponentModel;
+using CommunityToolkit.Mvvm.Messaging;
 using System.Collections;
+using System.ComponentModel;
+using System.Windows;
 
 namespace com.myxmu.SCADASystem.ViewModels
 {
-    public partial class LoginViewModel:ObservableObject, INotifyDataErrorInfo
+    public partial class LoginViewModel : ObservableObject, INotifyDataErrorInfo
     {
-        public LoginViewModel()
+        public UserSession UserSession { get; }
+
+        //容器会查找已注册的 UserSession，找到后，容器会自动创建或获取这个 UserSession 实例，并将其传递给 LoginViewModel 的构造函数。
+        public LoginViewModel(UserSession userSession)
         {
+            UserSession = userSession;
             // 初始化时主动触发校验
             ValidateProperty(nameof(UserName), UserName);
             ValidateProperty(nameof(Password), Password);
         }
 
-        private string _userName = string.Empty; // 确保初始值为空字符串
-        private string _password = string.Empty;
-        
+        private string _userName = "Admin";
+        private string _password = "123456";
+
         private readonly Dictionary<string, List<string>> _errors = new();
 
         public string UserName
@@ -92,29 +94,31 @@ namespace com.myxmu.SCADASystem.ViewModels
 
         public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
 
-
-
         [RelayCommand]
         private void Login()
         {
             if (string.IsNullOrEmpty(UserName) || string.IsNullOrEmpty(Password))
             {
-                MessageBox.Show("密码或用户名为空"); 
+                MessageBox.Show("密码或用户名为空");
                 return;
             }
 
             var userList = SqlSugarHelper.Db.Queryable<UserModel>().Where(e => e.UserName == UserName && e.Password == Password)
                 .ToList();
 
-            if (userList.Count>0)
+            if (userList.Count > 0)
             {
-                MessageBox.Show("login success");
+                UserSession.CurrentUser = userList[0];
+
+                //MessageBox.Show("login success");
+
+                //进行页面跳转 msg notify
+                WeakReferenceMessenger.Default.Send(new LoginMsg(UserSession.CurrentUser));
             }
             else
             {
                 MessageBox.Show("Login false,check name or pwd");
             }
-
         }
     }
 }
