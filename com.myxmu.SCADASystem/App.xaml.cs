@@ -23,11 +23,11 @@ namespace com.myxmu.SCADASystem
         /// <summary>
         /// Gets the <see cref="IServiceProvider"/> instance to resolve application services.
         /// </summary>
-        public IServiceProvider Service { get; set; }
+        public IServiceProvider Services { get; set; }
 
         public App()
         {
-            Service = ConfigureServices();
+            Services = ConfigureServices();
             //this.InitializeComponent();
         }
 
@@ -40,7 +40,7 @@ namespace com.myxmu.SCADASystem
                 RuntimeThemeGenerator.Current.GenerateRuntimeTheme("Light", Colors.AliceBlue)
             ));
 
-            Service.GetService<ShellView>()?.Show();
+            Services.GetService<ShellView>()?.Show();
         }
 
         /// <summary>
@@ -64,6 +64,12 @@ namespace com.myxmu.SCADASystem
 
             services.AddSingleton<MainView>();
             services.AddSingleton<MainViewModel>();
+
+            services.AddSingleton<IndexView>();
+            services.AddSingleton<IndexViewModel>();
+
+            services.AddSingleton<DeviceView>();
+            services.AddSingleton<DeviceViewModel>();
 
             return services.BuildServiceProvider();
 
