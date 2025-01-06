@@ -20,11 +20,63 @@
     mc:Ignorable="d">
     <DockPanel>
         <DockPanel Background="SkyBlue" DockPanel.Dock="Left">
-            <ListView
-                Cursor="Hand"
-                ItemsSource="{Binding MenuEntities}"
-                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                SelectedIndex="0" />
+            <StackPanel DockPanel.Dock="Top">
+                <ListView
+                    Cursor="Hand"
+                    ItemsSource="{Binding MenuEntities}"
+                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                    ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                    SelectedIndex="0">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel
+                                Width="80"
+                                Margin="0,5,0,5"
+                                Background="Transparent">
+                                <materialDesign:PackIcon
+                                    Width="20"
+                                    Height="20"
+                                    Margin="5"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Background="Transparent"
+                                    Foreground="White"
+                                    Kind="{Binding Icon}" />
+                                <TextBlock
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontSize="15"
+                                    Foreground="White"
+                                    Style="{StaticResource MaterialDesignTitleSmallTextBlock}"
+                                    Text="{Binding MenuName}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackPanel>
+            <StackPanel
+                Margin="0,15,0,4"
+                VerticalAlignment="Bottom"
+                DockPanel.Dock="Bottom">
+
+                <materialDesign:PackIcon
+                    Width="20"
+                    Height="20"
+                    Margin="5"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Background="Transparent"
+                    Foreground="White"
+                    Kind="ArrowLeftBoldCircle" />
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="15"
+                    Foreground="White"
+                    Style="{StaticResource MaterialDesignTitleSmallTextBlock}"
+                    Text="切换用户" />
+            </StackPanel>
         </DockPanel>
+        <DockPanel />
     </DockPanel>
 </UserControl>
