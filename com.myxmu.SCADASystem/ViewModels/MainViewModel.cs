@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using com.myxmu.SCADASystem.Messages;
 using com.myxmu.SCADASystem.Models;
 using com.myxmu.SCADASystem.Services;
 using Common.Helpers;
@@ -37,6 +38,13 @@ namespace com.myxmu.SCADASystem.ViewModels
         void Navigation(MenuModel menu)
         {
             WeakReferenceMessenger.Default.Send(menu);
+        }
+
+        [RelayCommand]
+        void ChangeUser()
+        {
+            // 用户登出的消息
+            WeakReferenceMessenger.Default.Send(new LoginOutMsg(UserSession.CurrentUser));
         }
     }
 }

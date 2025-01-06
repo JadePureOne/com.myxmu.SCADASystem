@@ -38,6 +38,8 @@
                                 <!--  事件转行为，将点击事件绑定到 ViewModel 的 NavigationCommand  -->
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="PreviewMouseUp">
+                                        <!--  如果没有 RelativeSource，绑定的上下文会是 DataTemplate 内部的 DataContext，也就是 ListView 的每个 MenuItem 的数据模型（MenuModel）.因为 WPF 的数据绑定会优先绑定到当前控件的 DataContext  -->
+                                        <!--  直接写 Command="{Binding NavigationCommand}"，WPF 会尝试从 MenuModel 中查找 NavigationCommand  -->
                                         <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}, Path=DataContext.NavigationCommand}" CommandParameter="{Binding}" />
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
@@ -67,7 +69,11 @@
                 Margin="0,15,0,4"
                 VerticalAlignment="Bottom"
                 DockPanel.Dock="Bottom">
-
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="PreviewMouseUp">
+                        <i:InvokeCommandAction Command="{Binding ChangeUserCommand}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
                 <materialDesign:PackIcon
                     Width="20"
                     Height="20"

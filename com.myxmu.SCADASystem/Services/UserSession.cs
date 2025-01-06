@@ -10,7 +10,7 @@ namespace com.myxmu.SCADASystem.Services
 {
     public class UserSession:ObservableObject
     {
-        private UserModel _user=new(){UserName = "test",Password = "123456"};
+        private UserModel _user=new();
 
         public UserModel CurrentUser
         {

@@ -4,6 +4,8 @@ using MaterialDesignThemes.Wpf;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 using com.myxmu.SCADASystem.Messages;
+using com.myxmu.SCADASystem.Models;
+using com.myxmu.SCADASystem.Services;
 using CommunityToolkit.Mvvm.Messaging;
 
 namespace com.myxmu.SCADASystem.Views
@@ -13,11 +15,12 @@ namespace com.myxmu.SCADASystem.Views
     /// </summary>
     public partial class ShellView : MetroWindow
     {
-        public ShellView()
+        private UserSession _userSession;
+        public ShellView(UserSession userSession)
         {
             InitializeComponent();
+            _userSession = userSession;
             InitData();
-
             LoadLoginWindow();
         }
 
@@ -30,12 +33,23 @@ namespace com.myxmu.SCADASystem.Views
             WeakReferenceMessenger.Default.Register<LoginMsg>(this, (sender, args) =>
             {
                 container.Content = App.current.Services.GetService<MainView>();
+                Width = 1200;
+                Height = 800;
+                // 设置窗体弹出的坐标位置
+                SetWindowLocation();
+            });
+
+            //切换用户
+            WeakReferenceMessenger.Default.Register<LoginOutMsg>(this, (sender, args) =>
+            {
+
+                container.Content = App.current.Services.GetService<LoginView>();
                 Width = 800;
                 Height = 450;
                 // 设置窗体弹出的坐标位置
                 SetWindowLocation();
             });
-            
+
         }
 
         private void SetWindowLocation()

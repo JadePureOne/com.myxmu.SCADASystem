@@ -32,5 +32,6 @@ namespace com.myxmu.SCADASystem.Views
         {
             this.DataContext = App.current.Services.GetService<LoginViewModel>();
         }
+
     }
 }

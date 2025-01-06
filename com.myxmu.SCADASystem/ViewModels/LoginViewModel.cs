@@ -19,13 +19,15 @@ namespace com.myxmu.SCADASystem.ViewModels
         public LoginViewModel(UserSession userSession)
         {
             UserSession = userSession;
+            
+            
             // 初始化时主动触发校验
             ValidateProperty(nameof(UserName), UserName);
             ValidateProperty(nameof(Password), Password);
         }
 
-        private string _userName = "Admin";
-        private string _password = "123456";
+        private string _userName;
+        private string _password;
 
         private readonly Dictionary<string, List<string>> _errors = new();
 
@@ -109,10 +111,10 @@ namespace com.myxmu.SCADASystem.ViewModels
             if (userList.Count > 0)
             {
                 UserSession.CurrentUser = userList[0];
-
-                //MessageBox.Show("login success");
-
+                
                 //进行页面跳转 msg notify
+                //UserName=String.Empty;
+                //Password= string.Empty;
                 WeakReferenceMessenger.Default.Send(new LoginMsg(UserSession.CurrentUser));
             }
             else
