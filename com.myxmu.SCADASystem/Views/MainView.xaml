@@ -19,7 +19,9 @@
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     mc:Ignorable="d">
     <DockPanel>
+        <!--  左侧菜单  -->
         <DockPanel Background="SkyBlue" DockPanel.Dock="Left">
+            <!--  菜单ListView  -->
             <StackPanel DockPanel.Dock="Top">
                 <ListView
                     Cursor="Hand"
@@ -33,6 +35,12 @@
                                 Width="80"
                                 Margin="0,5,0,5"
                                 Background="Transparent">
+                                <!--  事件转行为，将点击事件绑定到 ViewModel 的 NavigationCommand  -->
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="PreviewMouseUp">
+                                        <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}, Path=DataContext.NavigationCommand}" CommandParameter="{Binding}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
                                 <materialDesign:PackIcon
                                     Width="20"
                                     Height="20"
@@ -54,6 +62,7 @@
                     </ListView.ItemTemplate>
                 </ListView>
             </StackPanel>
+            <!--  切换用户btn  -->
             <StackPanel
                 Margin="0,15,0,4"
                 VerticalAlignment="Bottom"
@@ -78,5 +87,33 @@
             </StackPanel>
         </DockPanel>
         <DockPanel />
+        <!--  右侧动态页面  -->
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <ContentControl
+                x:Name="Page"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch" />
+            <StackPanel
+                Grid.Row="1"
+                Background="#cfd8dc"
+                Orientation="Horizontal">
+                <StatusBarItem
+                    Margin="0,0,5,0"
+                    Content="[Spray Process SCADA System]"
+                    Foreground="Gray" />
+                <StatusBarItem
+                    Margin="0,0,5,0"
+                    Content="当前用户"
+                    Foreground="Gray" />
+                <StatusBarItem
+                    Margin="0,0,5,0"
+                    Content="{Binding UserSession.CurrentUser.UserName}"
+                    Foreground="Gray" />
+            </StackPanel>
+        </Grid>
     </DockPanel>
 </UserControl>

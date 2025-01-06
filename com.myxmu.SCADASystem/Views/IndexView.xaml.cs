@@ -18,11 +18,11 @@ using System.Windows.Shapes;
 namespace com.myxmu.SCADASystem.Views
 {
     /// <summary>
-    /// LoginView.xaml 的交互逻辑
+    /// IndexView.xaml 的交互逻辑
     /// </summary>
-    public partial class LoginView : UserControl
+    public partial class IndexView : UserControl
     {
-        public LoginView()
+        public IndexView()
         {
             InitializeComponent();
             InitData();
@@ -30,7 +30,7 @@ namespace com.myxmu.SCADASystem.Views
 
         private void InitData()
         {
-            this.DataContext = App.current.Services.GetService<LoginViewModel>();
+            this.DataContext = App.current.Services.GetService<IndexViewModel>();
         }
     }
 }
