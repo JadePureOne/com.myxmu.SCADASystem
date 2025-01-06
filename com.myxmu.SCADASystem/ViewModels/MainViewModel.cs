@@ -41,7 +41,7 @@ namespace com.myxmu.SCADASystem.ViewModels
         }
 
         [RelayCommand]
-        void ChangeUser()
+        void ChangeUser(MenuModel menu)
         {
             // 用户登出的消息
             WeakReferenceMessenger.Default.Send(new LoginOutMsg(UserSession.CurrentUser));

@@ -49,31 +49,42 @@ namespace com.myxmu.SCADASystem
         /// <returns></returns>
         private static IServiceProvider ConfigureServices()
         {
-
             ServiceCollection services = new();
-            
-            //inject services
+
+            // 注入视图和视图模型
+            RegisterViewsAndViewModels(services);
+
+            // 注入服务
             services.AddSingleton<UserSession>();
 
-            // 注册视图和视图模型
-            services.AddSingleton<ShellView>();
-            services.AddSingleton<ShellViewModel>();
-
-            services.AddSingleton<LoginView>();
-            services.AddSingleton<LoginViewModel>();
-
-            services.AddSingleton<MainView>();
-            services.AddSingleton<MainViewModel>();
-
-            services.AddSingleton<IndexView>();
-            services.AddSingleton<IndexViewModel>();
-
-            services.AddSingleton<DeviceView>();
-            services.AddSingleton<DeviceViewModel>();
-
             return services.BuildServiceProvider();
+        }
 
+        /// <summary>
+        /// 注册视图和视图模型
+        /// </summary>
+        /// <param name="services"></param>
+        private static void RegisterViewsAndViewModels(ServiceCollection services)
+        {
+            // 获取所有视图和视图模型类型
+            var viewNamespace = typeof(App).Namespace + ".Views";
+            var viewModelNamespace = typeof(App).Namespace + ".ViewModels";
+
+            var viewTypes = typeof(App).Assembly.GetTypes()
+                .Where(t => t.Namespace == viewNamespace && t.Name.EndsWith("View"));
+            var viewModelTypes = typeof(App).Assembly.GetTypes()
+                .Where(t => t.Namespace == viewModelNamespace && t.Name.EndsWith("ViewModel"));
+
+            // 注入视图和视图模型
+            foreach (var viewType in viewTypes)
+            {
+                services.AddSingleton(viewType);
+            }
+
+            foreach (var viewModelType in viewModelTypes)
+            {
+                services.AddSingleton(viewModelType);
+            }
         }
     }
-
 }
