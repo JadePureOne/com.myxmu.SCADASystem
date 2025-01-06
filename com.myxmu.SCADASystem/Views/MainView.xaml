@@ -18,7 +18,13 @@
     TextElement.FontWeight="Regular"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     mc:Ignorable="d">
-    <Grid>
-        <TextBlock Text="Mainview" />
-    </Grid>
+    <DockPanel>
+        <DockPanel Background="SkyBlue" DockPanel.Dock="Left">
+            <ListView
+                Cursor="Hand"
+                ItemsSource="{Binding MenuEntities}"
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                SelectedIndex="0" />
+        </DockPanel>
+    </DockPanel>
 </UserControl>
