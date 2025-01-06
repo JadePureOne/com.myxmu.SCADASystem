@@ -4,7 +4,9 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Configuration;
 using System.Data;
 using System.Windows;
+using System.Windows.Media;
 using com.myxmu.SCADASystem.Services;
+using ControlzEx.Theming;
 
 namespace com.myxmu.SCADASystem
 {
@@ -32,6 +34,12 @@ namespace com.myxmu.SCADASystem
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+
+            // 切换主题，变为 AliceBlue
+            ThemeManager.Current.ChangeTheme(this, ThemeManager.Current.AddTheme(
+                RuntimeThemeGenerator.Current.GenerateRuntimeTheme("Light", Colors.AliceBlue)
+            ));
+
             Service.GetService<ShellView>()?.Show();
         }
 
