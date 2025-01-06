@@ -54,6 +54,7 @@
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding Id}" Header="#" />
                     <GridViewColumn DisplayMemberBinding="{Binding UserName}" Header="用户名" />
+                    <GridViewColumn DisplayMemberBinding="{Binding Role}" Header="角色" />
                     <GridViewColumn DisplayMemberBinding="{Binding Password}" Header="密码" />
                     <GridViewColumn DisplayMemberBinding="{Binding CreateDateTime}" Header="创建时间" />
                     <GridViewColumn DisplayMemberBinding="{Binding UpDateTime}" Header="修改时间" />

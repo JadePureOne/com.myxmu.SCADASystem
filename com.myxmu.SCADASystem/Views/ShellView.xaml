@@ -17,6 +17,7 @@
     TextElement.FontWeight="Regular"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
+    <!--  Identifier标识符，提供给 .Show（...）方法来帮助查找所需的DialogHost。  -->
     <materialDesign:DialogHost Identifier="ShellDialog">
         <ContentControl x:Name="container" />
     </materialDesign:DialogHost>

@@ -1,7 +1,10 @@
-﻿using com.myxmu.SCADASystem.Models;
+﻿using System.Windows;
+using com.myxmu.SCADASystem.Models;
+using com.myxmu.SCADASystem.Views;
 using Common.Helpers;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using MaterialDesignThemes.Wpf;
 
 namespace com.myxmu.SCADASystem.ViewModels
 {
@@ -14,8 +17,23 @@ namespace com.myxmu.SCADASystem.ViewModels
         /// 添加用户
         /// </summary>
         [RelayCommand]
-        private void AddUser(UserViewModel user)
+        private async void AddUser(UserViewModel user)
         {
+            var entity = new UserModel();
+            var view = new UserOperateDialogView() { DataContext = new UpdateViewModel<UserModel>(entity) };
+            var result = (bool)await DialogHost.Show(view, "ShellDialog");
+            if (result)
+            {
+                //Console.WriteLine($"Name:{entity.UserName}");
+                int count = await SqlSugarHelper.Db.Insertable<UserModel>(entity).ExecuteCommandAsync();
+
+                if(count > 0)
+                {
+                    UserList = QueryTable();
+                    MessageBox.Show("添加成功");
+                }
+
+            }
         }
 
         /// <summary>

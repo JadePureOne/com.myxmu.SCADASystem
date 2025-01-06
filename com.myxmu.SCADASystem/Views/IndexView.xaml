@@ -16,6 +16,6 @@
     TextElement.FontWeight="Regular"
     mc:Ignorable="d">
     <Grid>
-        <TextBlock Background="Red" Text="inmdexview" />
+        <TextBlock Text="inmdexview" />
     </Grid>
 </UserControl>
