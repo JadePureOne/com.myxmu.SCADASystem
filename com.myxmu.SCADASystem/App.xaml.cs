@@ -66,24 +66,33 @@ namespace com.myxmu.SCADASystem
         /// <param name="services"></param>
         private static void RegisterViewsAndViewModels(ServiceCollection services)
         {
-            // 获取所有视图和视图模型类型
-            var viewNamespace = typeof(App).Namespace + ".Views";
-            var viewModelNamespace = typeof(App).Namespace + ".ViewModels";
-
-            var viewTypes = typeof(App).Assembly.GetTypes()
-                .Where(t => t.Namespace == viewNamespace && t.Name.EndsWith("View"));
-            var viewModelTypes = typeof(App).Assembly.GetTypes()
-                .Where(t => t.Namespace == viewModelNamespace && t.Name.EndsWith("ViewModel"));
-
-            // 注入视图和视图模型
-            foreach (var viewType in viewTypes)
+            try
             {
-                services.AddSingleton(viewType);
+                // 获取所有视图和视图模型类型
+                var viewNamespace = typeof(App).Namespace + ".Views";
+                var viewModelNamespace = typeof(App).Namespace + ".ViewModels";
+
+                var viewTypes = typeof(App).Assembly.GetTypes()
+                    .Where(t => t.Namespace == viewNamespace && t.Name.EndsWith("View"));
+                var viewModelTypes = typeof(App).Assembly.GetTypes()
+                    .Where(t => t.Namespace == viewModelNamespace && t.Name.EndsWith("ViewModel"));
+
+                // 注入视图和视图模型
+                foreach (var viewType in viewTypes)
+                {
+                    services.AddSingleton(viewType);
+                }
+
+                foreach (var viewModelType in viewModelTypes)
+                {
+                    services.AddSingleton(viewModelType);
+                }
             }
-
-            foreach (var viewModelType in viewModelTypes)
+            catch (Exception ex)
             {
-                services.AddSingleton(viewModelType);
+                // 记录异常日志
+                Console.WriteLine($"Error registering views and view models: {ex.Message}");
+                throw;
             }
         }
     }

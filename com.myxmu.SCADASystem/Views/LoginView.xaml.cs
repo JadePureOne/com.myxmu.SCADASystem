@@ -33,5 +33,12 @@ namespace com.myxmu.SCADASystem.Views
             this.DataContext = App.current.Services.GetService<LoginViewModel>();
         }
 
+        private void Activated()
+        {
+             Console.WriteLine("2. MainWindow的Activated被触发");
+        }
+
+
+
     }
 }

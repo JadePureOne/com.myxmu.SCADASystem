@@ -20,8 +20,8 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.MahApps;component/Themes/MaterialDesignTheme.MahApps.Flyout.xaml" />
 
                 <!--  local Resources  -->
-                <ResourceDictionary Source="/Styles/TulingBtn.xaml" />
-                <ResourceDictionary Source="/Styles/TulingTextBlock.xaml" />
+                <ResourceDictionary Source="/Styles/MyBtn.xaml" />
+                <ResourceDictionary Source="/Styles/MyTextBlock.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

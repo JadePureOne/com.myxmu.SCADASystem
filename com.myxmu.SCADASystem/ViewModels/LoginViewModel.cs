@@ -19,7 +19,7 @@ namespace com.myxmu.SCADASystem.ViewModels
         public LoginViewModel(UserSession userSession)
         {
             UserSession = userSession;
-            
+            UserName = userSession?.CurrentUser?.UserName ?? "admin";
             
             // 初始化时主动触发校验
             ValidateProperty(nameof(UserName), UserName);
