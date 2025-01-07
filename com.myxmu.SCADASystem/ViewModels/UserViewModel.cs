@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using com.myxmu.SCADASystem.Models;
+using com.myxmu.SCADASystem.Services;
 using com.myxmu.SCADASystem.Views;
 using Common.Helpers;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -10,8 +11,15 @@ namespace com.myxmu.SCADASystem.ViewModels
 {
     public partial class UserViewModel : ObservableObject
     {
+        public UserSession UserSession { get; }
+
         [ObservableProperty]
         private List<UserModel> __userList = new();
+
+        public UserViewModel(UserSession userSession)
+        {
+            UserSession = userSession;
+        }
 
         /// <summary>
         /// 添加用户
@@ -19,6 +27,12 @@ namespace com.myxmu.SCADASystem.ViewModels
         [RelayCommand]
         private async void AddUser(UserViewModel user)
         {
+            if (UserSession.CurrentUser.Role != 0)
+            {
+                MessageBox.Show("no permission");
+                return;
+            }
+
             var entity = new UserModel();
             var view = new UserOperateDialogView() { DataContext = new UpdateViewModel<UserModel>(entity) };
             var result = (bool)await DialogHost.Show(view, "ShellDialog");
