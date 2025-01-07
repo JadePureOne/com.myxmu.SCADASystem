@@ -20,7 +20,7 @@
     mc:Ignorable="d">
     <DockPanel>
         <!--  左侧菜单  -->
-        <DockPanel Background="SkyBlue" DockPanel.Dock="Left">
+        <DockPanel Background="#546e7a" DockPanel.Dock="Left">
             <!--  菜单ListView  -->
             <StackPanel DockPanel.Dock="Top">
                 <ListView
