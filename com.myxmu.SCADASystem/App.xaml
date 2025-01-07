@@ -24,7 +24,7 @@
 
                 <!--  local Resources  -->
                 <ResourceDictionary Source="/Styles/MyBtn.xaml" />
-                <ResourceDictionary Source="/Styles/MyTextBlock.xaml" />
+                <ResourceDictionary Source="/Styles/MyTag.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

@@ -18,6 +18,7 @@
     TextElement.FontWeight="Regular"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     mc:Ignorable="d">
+    <!--  页面初始化 事件转行为  -->
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding WindowLoadedCommand}" />
@@ -29,6 +30,7 @@
             <RowDefinition Height="50" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
+        <!--  ToolBar  -->
         <StackPanel
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
@@ -46,6 +48,7 @@
                 Content="Add"
                 Style="{StaticResource MyButtonStyle}" />
         </StackPanel>
+        <!--  UserData  -->
         <ListView
             x:Name="listView"
             Grid.Row="1"
@@ -58,6 +61,38 @@
                     <GridViewColumn DisplayMemberBinding="{Binding Password}" Header="密码" />
                     <GridViewColumn DisplayMemberBinding="{Binding CreateDateTime, Converter={StaticResource DateTimeConvert}}" Header="创建时间" />
                     <GridViewColumn DisplayMemberBinding="{Binding UpDateTime, Converter={StaticResource DateTimeConvert}}" Header="修改时间" />
+                    <GridViewColumn Header="操作">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+
+                                    <TextBlock
+                                        Margin="10,0,10,0"
+                                        Style="{StaticResource MyTag}"
+                                        Text="修改">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="PreviewMouseUp">
+                                                <!--  ListView 的 ItemsSource 绑定到 UserList，每个项的 DataContext 是一个 UserModel。因此，CommandParameter="{Binding}" 会传递当前项的 UserModel。  -->
+                                                <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}, Path=DataContext.EditUserCommand}" CommandParameter="{Binding}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </TextBlock>
+
+                                    <TextBlock
+                                        Margin="10,0,10,0"
+                                        Style="{StaticResource MyTag}"
+                                        Text="删除">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="PreviewMouseUp">
+                                                <!--  ListView 的 ItemsSource 绑定到 UserList，每个项的 DataContext 是一个 UserModel。因此，CommandParameter="{Binding}" 会传递当前项的 UserModel。  -->
+                                                <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}, Path=DataContext.DeleteUserCommand}" CommandParameter="{Binding}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </TextBlock>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
 
                 </GridView>
             </ListView.View>
