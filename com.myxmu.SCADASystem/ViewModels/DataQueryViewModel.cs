@@ -8,6 +8,7 @@ using com.myxmu.SCADASystem.Models;
 using Common.Helpers;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using SqlSugar;
 
 namespace com.myxmu.SCADASystem.ViewModels
 {
@@ -28,6 +29,58 @@ namespace com.myxmu.SCADASystem.ViewModels
 
         #endregion
 
+        #region pager
+
+        int totalDataNumber = 0;
+
+        [ObservableProperty]
+        int _pageSize = 20;
+
+        [ObservableProperty]
+        private int _totalPages = 1;
+
+        [ObservableProperty]
+        int _currentPage = 1;
+
+        //使用[ObservableProperty] 特性 会自动生成OnxxxxChanged
+        partial void OnCurrentPageChanged(int value)
+        {
+            Search();
+        }
+
+
+        [RelayCommand]
+        void GoToFirstPage()
+        {
+            CurrentPage = 1;
+        }
+
+        [RelayCommand]
+        void GoToNextPage()
+        {
+            if (CurrentPage < TotalPages)
+            {
+                CurrentPage++;
+            }
+        }
+
+        [RelayCommand]
+        void GoToPreviousPage()
+        {
+            if (CurrentPage > 1)
+            {
+                CurrentPage--;
+            }
+        }
+
+        [RelayCommand]
+        void GoToLastPage()
+        {
+            CurrentPage = TotalPages;
+        }
+
+        #endregion
+
         [RelayCommand]
         void Reset()
         {
@@ -45,7 +98,11 @@ namespace com.myxmu.SCADASystem.ViewModels
 
                 return;
             }
-            ScadaReadDataList=SqlSugarHelper.Db.Queryable<ScadaReadDataModel>().Where(x => x.CreateDateTime >= StartTime && x.CreateDateTime <= EndTime).ToList();
+            //ScadaReadDataList=SqlSugarHelper.Db.Queryable<ScadaReadDataModel>().Where(x => x.CreateDateTime >= StartTime && x.CreateDateTime <= EndTime).ToList();
+            ScadaReadDataList = QueryTable();
+            TotalPages = (int)Math.Ceiling((double)totalDataNumber / PageSize);
+
+
         }
 
         /// <summary>
@@ -54,9 +111,9 @@ namespace com.myxmu.SCADASystem.ViewModels
         [RelayCommand]
         private void WindowLoaded()
         {
-            ScadaReadDataList = QueryTable();
+            Search();
         }
 
-        private List<ScadaReadDataModel> QueryTable() => SqlSugarHelper.Db.Queryable<ScadaReadDataModel>().ToList();
+        private List<ScadaReadDataModel> QueryTable() => SqlSugarHelper.Db.Queryable<ScadaReadDataModel>().ToPageList(CurrentPage,PageSize,ref totalDataNumber);
     }
 }
