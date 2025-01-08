@@ -24,6 +24,8 @@ namespace com.myxmu.SCADASystem.ViewModels
         [ObservableProperty]
         DateTime _endTime = DateTime.Now;
 
+
+
         #endregion
 
         [RelayCommand]

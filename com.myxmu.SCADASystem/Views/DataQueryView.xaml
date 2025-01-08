@@ -8,6 +8,7 @@
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:userControls="clr-namespace:com.myxmu.SCADASystem.UserControls"
     xmlns:vm="clr-namespace:com.myxmu.SCADASystem.ViewModels"
     d:DataContext="{d:DesignInstance vm:DataQueryViewModel}"
     d:DesignHeight="800"
@@ -108,5 +109,13 @@
                 </GridView>
             </ListView.View>
         </ListView>
+        <userControls:PaginationControl
+            Grid.Row="2"
+            CurrentPage="{Binding CurrentPage, Mode=TwoWay}"
+            GoToFirstPageCommand="{Binding GoToFirstPageCommand}"
+            GoToLastPageCommand="{Binding GoToLastPageCommand}"
+            GoToNextPageCommand="{Binding GoToNextPageCommand}"
+            GoToPreviousPageCommand="{Binding GoToPreviousPageCommand}"
+            TotalPages="{Binding TotalPages, Mode=TwoWay}" />
     </Grid>
 </UserControl>
