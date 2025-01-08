@@ -21,14 +21,15 @@ namespace com.myxmu.SCADASystem.ViewModels
         /// </summary>
         private void InitData()
         {
-            if (false)
+            if (true)
             {
                 //1. 建库
                 //SqlSugarHelper.Db.DbMaintenance.CreateDatabase();
 
                 //2. 建表
                 //SqlSugarHelper.Db.CodeFirst.InitTables<UserModel>();
-                SqlSugarHelper.Db.CodeFirst.InitTables<MenuModel>();
+                //SqlSugarHelper.Db.CodeFirst.InitTables<MenuModel>();
+                SqlSugarHelper.Db.CodeFirst.InitTables<ScadaReadDataModel>();
             }
 
             //insert menu data
@@ -130,6 +131,49 @@ namespace com.myxmu.SCADASystem.ViewModels
                 ];
                 SqlSugarHelper.Db.Insertable(userlist).ExecuteCommand();
             }
+
+            //insert scada data
+            if (true)
+            {
+                // 插入一些用户表里面的数据 root test test123
+
+                var scadaReadDatalist = new List<ScadaReadDataModel>();
+
+                for (int i = 0; i < 100; i++)
+                {
+
+                    var scadaReadData = new ScadaReadDataModel()
+                    {
+                        DegreasingSprayPumpPressure = GetRandomFloat(0.5f, 5.0f),
+                        DegreasingPhValue = GetRandomFloat(6.0f, 9.0f),
+                        RoughWashSprayPumpPressure = GetRandomFloat(1.0f, 4.0f),
+                        PhosphatingSprayPumpPressure = GetRandomFloat(0.8f, 3.5f),
+                        PhosphatingPhValue = GetRandomFloat(4.0f, 7.0f),
+                        FineWashSprayPumpPressure = GetRandomFloat(1.2f, 4.5f),
+                        MoistureFurnaceTemperature = GetRandomFloat(40.0f, 80.0f),
+                        CuringFurnaceTemperature = GetRandomFloat(120.0f, 200.0f),
+                        FactoryTemperature = GetRandomFloat(15.0f, 35.0f),
+                        FactoryHumidity = GetRandomFloat(30.0f, 80.0f),
+                        ProductionCount = GetRandomFloat(0, 1000),
+                        DefectiveCount = GetRandomFloat(0, 50),
+                        ProductionPace = GetRandomFloat(0.5f, 2.0f),
+                        AccumulatedAlarms = GetRandomFloat(0, 20),
+                        CreateDateTime = DateTime.Now.AddDays(GetRandomFloat(1f, 10f)),
+                        UpDateTime = DateTime.Now.AddDays(GetRandomFloat(1f, 10f))
+                    };
+
+                    scadaReadDatalist.Add(scadaReadData);
+
+                }
+
+
+                SqlSugarHelper.Db.Insertable(scadaReadDatalist).ExecuteCommand();
+            }
+        }
+
+        private float GetRandomFloat(float min, float max)
+        {
+            return (float)(new Random().NextDouble() * (max - min) + min);
         }
     }
 }
