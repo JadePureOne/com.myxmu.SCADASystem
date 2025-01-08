@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ using com.myxmu.SCADASystem.Models;
 using Common.Helpers;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using MiniExcelLibs;
 using SqlSugar;
 
 namespace com.myxmu.SCADASystem.ViewModels
@@ -81,11 +83,13 @@ namespace com.myxmu.SCADASystem.ViewModels
 
         #endregion
 
+        #region ToolBar
+
         [RelayCommand]
         void Reset()
         {
-            StartTime= DateTime.Now.AddDays(-30);
-            EndTime= DateTime.Now;
+            StartTime = DateTime.Now.AddDays(-30);
+            EndTime = DateTime.Now;
             ScadaReadDataList = SqlSugarHelper.Db.Queryable<ScadaReadDataModel>().ToList();
         }
 
@@ -105,6 +109,49 @@ namespace com.myxmu.SCADASystem.ViewModels
 
         }
 
+        [RelayCommand]
+        void ExportCurrentPage()
+        {
+            SaveByMiniExcel<ScadaReadDataModel>(ScadaReadDataList);
+        }
+
+        [RelayCommand]
+        void ExportAllPage()
+        {
+            var list = SqlSugarHelper.Db.Queryable<ScadaReadDataModel>().ToList();
+            SaveByMiniExcel(list);
+        }
+
+        #endregion
+
+        void SaveByMiniExcel<T>(List<T> list)
+        {
+            if (list.Count < 0)
+            {
+                return;
+            }
+
+            var rootPath = AppDomain.CurrentDomain.BaseDirectory + "\\excels\\";
+            if (!Directory.Exists(rootPath))
+            {
+                Directory.CreateDirectory(rootPath);
+            }
+
+            var excelPath = rootPath + DateTime.Now.ToString("yyyyMMddHHmmss") + ".xlsx";
+            try
+            {
+                MiniExcel.SaveAs(excelPath, list);
+                MessageBox.Show($"导出成功--{excelPath}");
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show($"导出异常--{e.Message}");
+            }
+        }
+
+        #region LifeCycle
+
+
         /// <summary>
         /// 窗口初始化时加载table数据
         /// </summary>
@@ -114,6 +161,8 @@ namespace com.myxmu.SCADASystem.ViewModels
             Search();
         }
 
-        private List<ScadaReadDataModel> QueryTable() => SqlSugarHelper.Db.Queryable<ScadaReadDataModel>().ToPageList(CurrentPage,PageSize,ref totalDataNumber);
+        private List<ScadaReadDataModel> QueryTable() => SqlSugarHelper.Db.Queryable<ScadaReadDataModel>().ToPageList(CurrentPage, PageSize, ref totalDataNumber);
+
+        #endregion
     }
 }

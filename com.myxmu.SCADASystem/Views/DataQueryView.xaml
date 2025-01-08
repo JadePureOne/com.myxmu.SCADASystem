@@ -78,12 +78,14 @@
                     Width="120"
                     Height="35"
                     Margin="10,5,5,5"
+                    Command="{Binding ExportCurrentPageCommand}"
                     Content="导出分页"
                     Style="{DynamicResource MyButtonStyle}" />
                 <Button
                     Width="120"
                     Height="35"
                     Margin="10,5,5,5"
+                    Command="{Binding ExportAllPageCommand}"
                     Content="导出全部"
                     Style="{DynamicResource MyButtonStyle}" />
             </StackPanel>
