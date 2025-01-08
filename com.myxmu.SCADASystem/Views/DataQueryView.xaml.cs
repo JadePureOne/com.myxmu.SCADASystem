@@ -1,4 +1,6 @@
-﻿using System;
+﻿using com.myxmu.SCADASystem.ViewModels;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +25,12 @@ namespace com.myxmu.SCADASystem.Views
         public DataQueryView()
         {
             InitializeComponent();
+            InitData();
+        }
+
+        private void InitData()
+        {
+            this.DataContext = App.current.Services.GetService<DataQueryViewModel>();
         }
     }
 }
