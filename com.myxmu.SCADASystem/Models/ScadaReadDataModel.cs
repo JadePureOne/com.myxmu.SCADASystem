@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MiniExcelLibs.Attributes;
 
 namespace com.myxmu.SCADASystem.Models
 {
@@ -18,6 +19,7 @@ namespace com.myxmu.SCADASystem.Models
         /// <summary>
         /// 脱脂喷淋泵压力值
         /// </summary>
+        [ExcelColumnName("脱脂喷淋泵压力值")]
         public float DegreasingSprayPumpPressure
         {
             get => _degreasingSprayPumpPressure;
@@ -28,6 +30,7 @@ namespace com.myxmu.SCADASystem.Models
         /// <summary>
         /// 脱脂pH值
         /// </summary>
+        [ExcelColumnName("脱脂pH值")]
         public float DegreasingPhValue
         {
             get => _degreasingPhValue;
@@ -38,6 +41,7 @@ namespace com.myxmu.SCADASystem.Models
         /// <summary>
         /// 粗洗喷淋泵压力值
         /// </summary>
+        [ExcelColumnName("粗洗喷淋泵压力值")]
         public float RoughWashSprayPumpPressure
         {
             get => _roughWashSprayPumpPressure;
@@ -48,6 +52,7 @@ namespace com.myxmu.SCADASystem.Models
         /// <summary>
         /// 陶化喷淋泵压力值
         /// </summary>
+        [ExcelColumnName("陶化喷淋泵压力值")]
         public float PhosphatingSprayPumpPressure
         {
             get => _phosphatingSprayPumpPressure;
@@ -58,16 +63,17 @@ namespace com.myxmu.SCADASystem.Models
         /// <summary>
         /// 陶化pH值
         /// </summary>
+        [ExcelColumnName("陶化pH值")]
         public float PhosphatingPhValue
         {
             get => _phosphatingPhValue;
             set => SetProperty(ref _phosphatingPhValue, value);
         }
-
         private float _fineWashSprayPumpPressure;
         /// <summary>
         /// 精洗喷淋泵压力值
         /// </summary>
+        [ExcelColumnName("精洗喷淋泵压力值")]
         public float FineWashSprayPumpPressure
         {
             get => _fineWashSprayPumpPressure;
@@ -78,6 +84,7 @@ namespace com.myxmu.SCADASystem.Models
         /// <summary>
         /// 水分炉测量温度
         /// </summary>
+        [ExcelColumnName("水分炉测量温度")]
         public float MoistureFurnaceTemperature
         {
             get => _moistureFurnaceTemperature;
@@ -88,6 +95,7 @@ namespace com.myxmu.SCADASystem.Models
         /// <summary>
         /// 固化炉测量温度
         /// </summary>
+        [ExcelColumnName("固化炉测量温度")]
         public float CuringFurnaceTemperature
         {
             get => _curingFurnaceTemperature;
@@ -98,6 +106,7 @@ namespace com.myxmu.SCADASystem.Models
         /// <summary>
         /// 厂内温度
         /// </summary>
+        [ExcelColumnName("厂内温度")]
         public float FactoryTemperature
         {
             get => _factoryTemperature;
@@ -108,6 +117,7 @@ namespace com.myxmu.SCADASystem.Models
         /// <summary>
         /// 厂内湿度
         /// </summary>
+        [ExcelColumnName("厂内湿度")]
         public float FactoryHumidity
         {
             get => _factoryHumidity;
@@ -118,6 +128,7 @@ namespace com.myxmu.SCADASystem.Models
         /// <summary>
         /// 生产计数
         /// </summary>
+        [ExcelColumnName("生产计数")]
         public float ProductionCount
         {
             get => _productionCount;
@@ -128,6 +139,7 @@ namespace com.myxmu.SCADASystem.Models
         /// <summary>
         /// 不良计数
         /// </summary>
+        [ExcelColumnName("不良计数")]
         public float DefectiveCount
         {
             get => _defectiveCount;
@@ -138,6 +150,7 @@ namespace com.myxmu.SCADASystem.Models
         /// <summary>
         /// 生产节拍
         /// </summary>
+        [ExcelColumnName("生产节拍")]
         public float ProductionPace
         {
             get => _productionPace;
@@ -148,6 +161,7 @@ namespace com.myxmu.SCADASystem.Models
         /// <summary>
         /// 累计报警
         /// </summary>
+        [ExcelColumnName("累计报警")]
         public float AccumulatedAlarms
         {
             get => _accumulatedAlarms;
