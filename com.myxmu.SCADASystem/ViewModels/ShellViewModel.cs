@@ -21,7 +21,7 @@ namespace com.myxmu.SCADASystem.ViewModels
         /// </summary>
         private void InitData()
         {
-            if (true)
+            if (false)
             {
                 //1. 建库
                 //SqlSugarHelper.Db.DbMaintenance.CreateDatabase();
@@ -133,7 +133,7 @@ namespace com.myxmu.SCADASystem.ViewModels
             }
 
             //insert scada data
-            if (true)
+            if (false)
             {
                 // 插入一些用户表里面的数据 root test test123
 
