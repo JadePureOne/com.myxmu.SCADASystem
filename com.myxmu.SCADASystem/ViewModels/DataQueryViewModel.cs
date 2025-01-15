@@ -9,8 +9,11 @@ using com.myxmu.SCADASystem.Models;
 using Common.Helpers;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using FastReport.Export.Pdf;
+using FastReport;
 using MiniExcelLibs;
 using SqlSugar;
+using System.Data;
 
 namespace com.myxmu.SCADASystem.ViewModels
 {
@@ -121,6 +124,92 @@ namespace com.myxmu.SCADASystem.ViewModels
             var list = SqlSugarHelper.Db.Queryable<ScadaReadDataModel>().ToList();
             SaveByMiniExcel(list);
         }
+
+        [RelayCommand]
+        void DesignReport()
+        {
+            try
+            {
+                var report = new Report();
+                // 加载报表设计文件
+                var path = $@"{Environment.CurrentDirectory}\Configs\report.frx";
+                report.Load(path);
+                report.Design();
+
+                // 导出 PDF
+                var pdfExport = new PDFExport();
+                pdfExport.Export(report);
+
+                report.Dispose();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+        }
+
+        [RelayCommand]
+        void PreviewReport()
+        {
+            var report = new Report();
+            try
+            {
+                var dataSet = ScadaReadDataList.ConvertToDataSet();
+
+                if (dataSet == null || dataSet.Tables.Count == 0)
+                {
+                    throw new Exception("DataSet is empty or not properly formed.");
+                }
+
+                var path = Path.Combine(Environment.CurrentDirectory, "Configs", "report.frx");
+                if (!File.Exists(path))
+                {
+                    throw new FileNotFoundException("The report file was not found at the specified path.", path);
+                }
+
+                report.Load(path);
+
+                // Register each table in the DataSet
+                report.RegisterData(dataSet);
+
+
+                report.Prepare();
+                report.ShowPrepared();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+            finally
+            {
+                report?.Dispose();
+            }
+        }
+
+        [RelayCommand]
+        void ExportReport()
+        {
+            try
+            {
+                var dateSet = ScadaReadDataList.ConvertToDataSet();
+                var report = new Report();
+                var path = $@"{Environment.CurrentDirectory}\Configs\report.frx";
+                report.Load(path);
+                report.RegisterData(dateSet);
+                report.Prepare();
+                // 导出 PDF
+                var pdfExport = new PDFExport();
+                pdfExport.Export(report);
+                report.Dispose();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+        }
+
+        [RelayCommand]
+        void PushData() { }
 
         #endregion
 

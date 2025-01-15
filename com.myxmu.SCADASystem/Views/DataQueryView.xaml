@@ -88,6 +88,37 @@
                     Command="{Binding ExportAllPageCommand}"
                     Content="导出全部"
                     Style="{DynamicResource MyButtonStyle}" />
+
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Button
+                    Width="120"
+                    Height="35"
+                    Margin="20,5,5,5"
+                    Command="{Binding DesignReportCommand}"
+                    Content="报表设计"
+                    Style="{DynamicResource MyButtonStyle}" />
+                <Button
+                    Width="120"
+                    Height="35"
+                    Margin="10,5,5,5"
+                    Command="{Binding PreviewReportCommand}"
+                    Content="报表预览"
+                    Style="{DynamicResource MyButtonStyle}" />
+                <Button
+                    Width="120"
+                    Height="35"
+                    Margin="10,5,5,5"
+                    Command="{Binding ExportReportCommand}"
+                    Content="报表导出"
+                    Style="{DynamicResource MyButtonStyle}" />
+                <Button
+                    Width="120"
+                    Height="35"
+                    Margin="10,5,5,5"
+                    Command="{Binding PushDataCommand}"
+                    Content="推送数据"
+                    Style="{DynamicResource MyButtonStyle}" />
             </StackPanel>
         </StackPanel>
         <!--  数据查询  -->

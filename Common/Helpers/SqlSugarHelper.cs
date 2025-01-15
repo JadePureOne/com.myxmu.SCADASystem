@@ -19,7 +19,7 @@ namespace Common.Helpers
         //用单例模式
         public static SqlSugarScope Db = new SqlSugarScope(new ConnectionConfig()
             {
-            ConnectionString = "server=localhost;Database=scada;Uid=root;Pwd=123456;AllowLoadLocalInfile=true", //必填, 数据库连接字符串
+            ConnectionString = "server=localhost;Port=3307;Database=scada;Uid=root;Pwd=123456;AllowLoadLocalInfile=true", //必填, 数据库连接字符串
             DbType = DbType.MySql,//数据库类型
                 IsAutoCloseConnection = true //不设成true要手动close
             },

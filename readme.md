@@ -2,15 +2,19 @@
  * @Author: 顾名思义
  * @Date: 2025-01-07 09:42:17
  * @LastEditors: 顾名思义
- * @LastEditTime: 2025-01-07 09:57:28
- * @FilePath: \com.myxmu.SCADASystem\readme.md
+ * @LastEditTime: 2025-01-08 22:58:00
+ * @FilePath: \undefinedd:\QSNYC\playground\DotNet\com.myxmu.SCADASystem\readme.md
  * @Description:
  *
--->
+ -->
 
 # WPF 框架搭建
 
+---
+
 ## 1. Nuget 包安装
+
+---
 
 - CommunityToolkit.MVVM
 - Microsoft.Extensions.DependencyInjection
@@ -23,9 +27,14 @@
 - Microsoft.Extensions.Options - Db 层
 - SqlSugarCore-Db 层
 - NLog.Extensions.Logging-Db 层
+- manual ref FastReport DLL
+- FastReport.Compat（2024-02-15）
+- FastReport.DataVis(2024-02-15)
 - 关于 MaterialDesignThemes 使用可以直接参考课件资料下的 Demo，官网链接 https://github.com/MaterialDesignInXAML/MaterialDesignInXamlToolkit
 
 ## 2. 框架预准备
+
+---
 
 1. 删除 MainWindow.xaml，App.xaml 中 StartUri 也删除
 2. 创建三层架构 Views ViewModels Models
@@ -37,12 +46,58 @@
 
 ## 3 搭建数据库交互层
 
+---
+
 1. 创建 TulingScadaSystem.Db 类库项目，安装 Nuget 包：
    - CommunityToolkit.Mvvm
    - SqlSugarCore
 2. 创建 Helpers-SqlSugarHelper.cs 类
 
+
+
+# FastReport
+
+---
+
+## Binding DataSource
+
+---
+
+json2csv toolkit:https://www.bejson.com/json/json2excel/, separate choose `;` ,after download edit extension
+
+![image-20250109085943975](./assets/image-20250109085943975.png)
+
+
+
+![image-20250109090102118](./assets/image-20250109090102118.png)
+
+![image-20250109090124281](./assets/image-20250109090124281.png)
+
+
+
+## Binding column 
+
+---
+
+double click header title, select corresponding value
+
+![image-20250109090333513](./assets/image-20250109090333513.png)
+
+## Tips
+
+---
+
+![image-20250109090624638](./assets/image-20250109090624638.png)
+
+
+
+fill data
+
+![image-20250109090734836](./assets/image-20250109090734836.png)
+
 # CodeSnape
+
+---
 
 Xaml's UI，style,Ref...
 

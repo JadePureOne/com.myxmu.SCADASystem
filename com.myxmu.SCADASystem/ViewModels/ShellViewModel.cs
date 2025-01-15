@@ -79,13 +79,13 @@ namespace com.myxmu.SCADASystem.ViewModels
                         View = "ChartView",
                         Sort = 6,
                     },
-                    new ()
-                    {
-                        MenuName = "报表管理",
-                        Icon = "FileReport",
-                        View = "ReportView",
-                        Sort = 7,
-                    },
+                    //new ()
+                    //{
+                    //    MenuName = "报表管理",
+                    //    Icon = "FileReport",
+                    //    View = "ReportView",
+                    //    Sort = 7,
+                    //},
                     new ()
                     {
                         MenuName = "日志管理",
