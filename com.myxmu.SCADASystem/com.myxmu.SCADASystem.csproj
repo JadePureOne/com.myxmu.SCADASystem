@@ -55,6 +55,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Configs\appsetting.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Configs\report.frx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

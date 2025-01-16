@@ -1,12 +1,17 @@
-﻿using com.myxmu.SCADASystem.ViewModels;
+﻿using com.myxmu.SCADASystem.Models;
+using com.myxmu.SCADASystem.Services;
 using com.myxmu.SCADASystem.Views;
+using Common.Helpers;
+using ControlzEx.Theming;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System.Configuration;
+using Microsoft.Extensions.Logging;
+using NLog;
+using NLog.Extensions.Logging;
 using System.Data;
 using System.Windows;
 using System.Windows.Media;
-using com.myxmu.SCADASystem.Services;
-using ControlzEx.Theming;
+using LogLevel = Microsoft.Extensions.Logging.LogLevel;
 
 namespace com.myxmu.SCADASystem
 {
@@ -51,6 +56,18 @@ namespace com.myxmu.SCADASystem
         {
             ServiceCollection services = new();
 
+            //注入configuration
+            var configuration = InjectConfigure(services);
+
+            // 配置Log
+            ConfigureLog(services, configuration);
+
+            //配置DBParams，改造SqlSugar
+            ConfigureDB(services, configuration);
+
+            //系统参数
+            ConfigureSys(services, configuration);
+
             // 注入视图和视图模型
             RegisterViewsAndViewModels(services);
 
@@ -60,6 +77,66 @@ namespace com.myxmu.SCADASystem
             return services.BuildServiceProvider();
         }
 
+        #region ParamsSetting
+
+        private static void ConfigureSys(ServiceCollection services, IConfiguration configuration)
+        {
+            services.AddOptions()
+                .Configure<AppSetting>(e => configuration.Bind(e))
+                .Configure<SqlParam>(e => configuration.GetSection("SqlParam").Bind(e))
+                .Configure<SystemParam>(e => configuration.GetSection("SystemParam").Bind(e))
+                .Configure<PlcParam>(e => configuration.GetSection("PlcParam").Bind(e));
+        }
+
+        private static void ConfigureDB(ServiceCollection services, IConfiguration configuration)
+        {
+            configuration.GetSection("SqlParam");
+
+            var parseResult = Enum.TryParse<SqlSugar.DbType>(configuration["SqlParam:DbType"], out var dbType);
+            var connectionString = configuration["SqlParam:ConnectionString"];
+
+            if (parseResult)
+            {
+                SqlSugarHelper.AddSqlSugarSetup(dbType, connectionString);
+            }
+        }
+
+        private static void ConfigureLog(ServiceCollection services, IConfiguration configuration)
+        {
+            //实现单例注入和日志
+            services.AddLogging(log =>
+            {
+                log.ClearProviders();
+                log.SetMinimumLevel(LogLevel.Trace);
+                log.AddNLog();
+            });
+
+            //NLog配置
+            // 1. 获取日志参数 ILogger<T>
+            var nLogConfig = configuration.GetSection("NLog");
+            // 2. 设置NLog配置
+            LogManager.Configuration = new NLogLoggingConfiguration(nLogConfig);
+        }
+
+        /// <summary>
+        /// 将 Json 文件里面的内容映射到 AppSetting 类上
+        /// </summary>
+        private static IConfiguration InjectConfigure(ServiceCollection services)
+        {
+            var cgjBuilder = new ConfigurationBuilder()
+                .SetBasePath(Environment.CurrentDirectory + "\\Configs")
+                .AddJsonFile("appsetting.json", false, true);
+            var configuration = cgjBuilder.Build();
+
+            //单例注入
+            services.AddSingleton<IConfiguration>(configuration);
+
+            return configuration; // 返回 IConfiguration
+        }
+
+        #endregion ParamsSetting
+
+        #region 注册视图和视图模型
         /// <summary>
         /// 注册视图和视图模型
         /// </summary>
@@ -95,5 +172,6 @@ namespace com.myxmu.SCADASystem
                 throw;
             }
         }
+        #endregion
     }
 }
