@@ -3,10 +3,12 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:local="clr-namespace:com.myxmu.SCADASystem.Views"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:userControls="clr-namespace:com.myxmu.SCADASystem.UserControls"
     xmlns:vm="clr-namespace:com.myxmu.SCADASystem.ViewModels"
     d:DataContext="{d:DesignInstance vm:IndexViewModel}"
     d:DesignHeight="800"
@@ -16,6 +18,127 @@
     TextElement.FontWeight="Regular"
     mc:Ignorable="d">
     <Grid>
-        <TextBlock Text="inmdexview" />
+        <Grid.Background>
+            <ImageBrush ImageSource="/Resources/Images/bg.png" />
+        </Grid.Background>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+
+        <Border
+            Grid.Row="0"
+            Grid.ColumnSpan="3"
+            BorderBrush="#87ceeb"
+            BorderThickness="0,0,0,1" />
+
+
+        <!--  温湿度  -->
+        <StackPanel Margin="0,5,0,0" TextElement.FontSize="14">
+            <StackPanel Orientation="Horizontal">
+                <materialDesign:PackIcon
+                    Width="20"
+                    Height="20"
+                    Margin="0,0,5,0"
+                    VerticalAlignment="Center"
+                    Background="Transparent"
+                    Foreground="White"
+                    Kind="TemperatureCentigrade" />
+                <TextBlock
+                    Margin="0,0,5,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Foreground="White"
+                    Style="{StaticResource MaterialDesignTitleSmallTextBlock}"
+                    Text="厂房温度:" />
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Foreground="White"
+                    Style="{StaticResource MaterialDesignTitleSmallTextBlock}"
+                    Text="25" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <materialDesign:PackIcon
+                    Width="20"
+                    Height="20"
+                    Margin="0,0,5,0"
+                    VerticalAlignment="Center"
+                    Background="Transparent"
+                    Foreground="White"
+                    Kind="Humidity" />
+                <TextBlock
+                    Margin="0,0,5,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Foreground="White"
+                    Style="{StaticResource MaterialDesignTitleSmallTextBlock}"
+                    Text="厂房湿度:" />
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Foreground="White"
+                    Style="{StaticResource MaterialDesignTitleSmallTextBlock}"
+                    Text="65" />
+            </StackPanel>
+        </StackPanel>
+
+
+        <!--  中央看板文字  -->
+        <StackPanel Grid.Row="0" Grid.Column="1">
+            <TextBlock
+                Margin="15"
+                HorizontalAlignment="Center"
+                FontSize="20"
+                Foreground="White"
+                Text="喷涂工艺SCADA生产系统看板" />
+        </StackPanel>
+
+        <!--  系统状态  -->
+        <StackPanel
+            Grid.Row="0"
+            Grid.Column="2"
+            Margin="0,5,0,0">
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                <TextBlock
+                    Margin="0,0,5,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Foreground="White"
+                    Style="{StaticResource MaterialDesignTitleSmallTextBlock}"
+                    Text="系统状态:" />
+                <materialDesign:PackIcon
+                    Width="20"
+                    Height="20"
+                    Margin="0,0,5,0"
+                    VerticalAlignment="Center"
+                    Background="Transparent"
+                    Foreground="Green"
+                    Kind="AlarmLight" />
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                <TextBlock
+                    Margin="0,0,5,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Foreground="White"
+                    Style="{StaticResource MaterialDesignTitleSmallTextBlock}"
+                    Text="连接状态:" />
+                <materialDesign:PackIcon
+                    Width="20"
+                    Height="20"
+                    Margin="0,0,5,0"
+                    VerticalAlignment="Center"
+                    Background="Transparent"
+                    Foreground="Red"
+                    Kind="Aed" />
+            </StackPanel>
+        </StackPanel>
     </Grid>
 </UserControl>
