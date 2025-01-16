@@ -81,6 +81,7 @@ namespace com.myxmu.SCADASystem
 
         private static void ConfigureSys(ServiceCollection services, IConfiguration configuration)
         {
+            //get via IOptionsSnapshot<RootParam>.Value
             services.AddOptions()
                 .Configure<AppSetting>(e => configuration.Bind(e))
                 .Configure<SqlParam>(e => configuration.GetSection("SqlParam").Bind(e))
@@ -112,7 +113,7 @@ namespace com.myxmu.SCADASystem
             });
 
             //NLog配置
-            // 1. 获取日志参数 ILogger<T>
+            // 1. 获取日志参数 ILogger<T> T：需要记录的父类
             var nLogConfig = configuration.GetSection("NLog");
             // 2. 设置NLog配置
             LogManager.Configuration = new NLogLoggingConfiguration(nLogConfig);
