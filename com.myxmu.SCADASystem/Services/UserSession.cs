@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using com.myxmu.SCADASystem.Models;
+using com.myxmu.SCADASystem.UserControls;
 using CommunityToolkit.Mvvm.ComponentModel;
+using MaterialDesignThemes.Wpf;
 
 namespace com.myxmu.SCADASystem.Services
 {
@@ -16,6 +19,14 @@ namespace com.myxmu.SCADASystem.Services
         {
             get => _user;
             set => SetProperty(ref _user, value);
+        }
+
+        public void ShowMessageBox(string header, MessageBoxButton btn = MessageBoxButton.OK)
+        {
+            App.current.Dispatcher.Invoke(() =>
+            {
+                DialogHost.Show(new MsgBox(header, btn), "ShellDialog");
+            });
         }
     }
 }

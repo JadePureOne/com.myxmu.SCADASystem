@@ -2,6 +2,7 @@
 using AngleSharp.Dom;
 using com.myxmu.SCADASystem.Models;
 using com.myxmu.SCADASystem.Services;
+using com.myxmu.SCADASystem.UserControls;
 using com.myxmu.SCADASystem.Views;
 using Common.Helpers;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -36,7 +37,7 @@ namespace com.myxmu.SCADASystem.ViewModels
             }
             else
             {
-                MessageBox.Show("no permission");
+                UserSession.ShowMessageBox("no permission");
                 return false;
 
             }
@@ -64,7 +65,7 @@ namespace com.myxmu.SCADASystem.ViewModels
                 if(count > 0)
                 {
                     UserList = QueryTable();
-                    MessageBox.Show("添加成功");
+                    UserSession.ShowMessageBox("添加成功");
                 }
 
             }
@@ -75,7 +76,7 @@ namespace com.myxmu.SCADASystem.ViewModels
         /// </summary>
         /// <param name="user"></param>
         [RelayCommand]
-        private void DeleteUser(UserModel user)
+        private async void DeleteUser(UserModel user)
         {
             if (!HasPermiss())
             {
@@ -83,17 +84,20 @@ namespace com.myxmu.SCADASystem.ViewModels
             }
             if(UserSession.CurrentUser.UserName == user.UserName)
             {
-                MessageBox.Show("不能删除自己");
+                UserSession.ShowMessageBox("不能删除自己");
                 return;
             }
 
-            var res = MessageBox.Show("确定要删除吗", "警告", MessageBoxButton.OKCancel);
-            if (res == MessageBoxResult.OK)
+            var res = (bool)await DialogHost.Show(new MsgBox("确定要删除吗", MessageBoxButton
+                .YesNo), "ShellDialog");
+
+             
+            if (res )
             {
                 int count = SqlSugarHelper.Db.Deleteable<UserModel>().Where(e => e.Id == user.Id).ExecuteCommand();
                 if (count > 0)
                 {
-                    MessageBox.Show("Delete success");
+                    UserSession.ShowMessageBox("Delete success");
                     UserList = QueryTable();
 
                 }
@@ -133,11 +137,11 @@ namespace com.myxmu.SCADASystem.ViewModels
                 if (count > 0)
                 {
                     UserList = QueryTable();
-                    MessageBox.Show("edit success");
+                    UserSession.ShowMessageBox("edit success");
                 }
                 else
                 {
-                    MessageBox.Show("edit fail");
+                    UserSession.ShowMessageBox("edit fail");
 
                 }
 

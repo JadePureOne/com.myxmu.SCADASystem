@@ -101,7 +101,7 @@ namespace com.myxmu.SCADASystem.ViewModels
         {
             if (string.IsNullOrEmpty(UserName) || string.IsNullOrEmpty(Password))
             {
-                MessageBox.Show("密码或用户名为空");
+                UserSession.ShowMessageBox("密码或用户名为空");
                 return;
             }
 
@@ -119,7 +119,7 @@ namespace com.myxmu.SCADASystem.ViewModels
             }
             else
             {
-                MessageBox.Show("Login false,check name or pwd");
+                UserSession.ShowMessageBox("Login false,check name or pwd");
             }
         }
     }

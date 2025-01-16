@@ -25,6 +25,10 @@
                 <!--  local Resources  -->
                 <ResourceDictionary Source="/Styles/MyBtn.xaml" />
                 <ResourceDictionary Source="/Styles/MyTag.xaml" />
+
+                <!--  svg icon  -->
+                <ResourceDictionary Source="/Styles/IconDictionary.xaml" />
+
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

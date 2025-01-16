@@ -14,6 +14,7 @@ using FastReport;
 using MiniExcelLibs;
 using SqlSugar;
 using System.Data;
+using com.myxmu.SCADASystem.Services;
 
 namespace com.myxmu.SCADASystem.ViewModels
 {
@@ -21,6 +22,8 @@ namespace com.myxmu.SCADASystem.ViewModels
     {
         [ObservableProperty]
         List<ScadaReadDataModel> _scadaReadDataList = new();
+
+        private readonly UserSession _userSession;
 
         #region 表单数据
 
@@ -46,6 +49,11 @@ namespace com.myxmu.SCADASystem.ViewModels
 
         [ObservableProperty]
         int _currentPage = 1;
+
+        public DataQueryViewModel(UserSession userSession)
+        {
+            _userSession = userSession;
+        }
 
         //使用[ObservableProperty] 特性 会自动生成OnxxxxChanged
         partial void OnCurrentPageChanged(int value)
@@ -101,7 +109,7 @@ namespace com.myxmu.SCADASystem.ViewModels
         {
             if (StartTime > EndTime)
             {
-                MessageBox.Show("开始时间不能超过结束时间");
+                _userSession.ShowMessageBox("开始时间不能超过结束时间");
 
                 return;
             }
@@ -144,7 +152,7 @@ namespace com.myxmu.SCADASystem.ViewModels
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                _userSession.ShowMessageBox(e.Message);
             }
         }
 
@@ -178,7 +186,7 @@ namespace com.myxmu.SCADASystem.ViewModels
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                _userSession.ShowMessageBox(e.Message);
             }
             finally
             {
@@ -204,7 +212,7 @@ namespace com.myxmu.SCADASystem.ViewModels
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                _userSession.ShowMessageBox(e.Message);
             }
         }
 
@@ -230,11 +238,11 @@ namespace com.myxmu.SCADASystem.ViewModels
             try
             {
                 MiniExcel.SaveAs(excelPath, list);
-                MessageBox.Show($"导出成功--{excelPath}");
+                _userSession.ShowMessageBox($"导出成功--{excelPath}");
             }
             catch (Exception e)
             {
-                MessageBox.Show($"导出异常--{e.Message}");
+                _userSession.ShowMessageBox($"导出异常--{e.Message}");
             }
         }
 
