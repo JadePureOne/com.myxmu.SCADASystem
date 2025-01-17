@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using com.myxmu.SCADASystem.Models;
+using Model;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.Extensions.Options;
 

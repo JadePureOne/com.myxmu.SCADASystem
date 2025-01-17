@@ -4,7 +4,7 @@ using MaterialDesignThemes.Wpf;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 using com.myxmu.SCADASystem.Messages;
-using com.myxmu.SCADASystem.Models;
+using Model;
 using com.myxmu.SCADASystem.Services;
 using CommunityToolkit.Mvvm.Messaging;
 

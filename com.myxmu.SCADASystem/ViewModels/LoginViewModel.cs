@@ -1,5 +1,5 @@
 ﻿using com.myxmu.SCADASystem.Messages;
-using com.myxmu.SCADASystem.Models;
+using Model;
 using com.myxmu.SCADASystem.Services;
 using Common.Helpers;
 using CommunityToolkit.Mvvm.ComponentModel;

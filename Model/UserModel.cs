@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using SqlSugar;
 
 
-namespace com.myxmu.SCADASystem.Models
+namespace Model
 {
     [SugarTable("user")]
     public class UserModel:EntityBase

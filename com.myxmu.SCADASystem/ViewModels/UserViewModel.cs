@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 using AngleSharp.Dom;
-using com.myxmu.SCADASystem.Models;
+using Model;
 using com.myxmu.SCADASystem.Services;
 using com.myxmu.SCADASystem.UserControls;
 using com.myxmu.SCADASystem.Views;

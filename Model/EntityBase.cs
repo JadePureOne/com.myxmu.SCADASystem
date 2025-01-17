@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using SqlSugar;
 
-namespace com.myxmu.SCADASystem.Models
+namespace Model
 {
     public class EntityBase:ObservableObject
     {

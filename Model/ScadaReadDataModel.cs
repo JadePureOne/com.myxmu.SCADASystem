@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MiniExcelLibs.Attributes;
 
-namespace com.myxmu.SCADASystem.Models
+namespace Model
 {
     [SugarTable("scadaReadData")]
 

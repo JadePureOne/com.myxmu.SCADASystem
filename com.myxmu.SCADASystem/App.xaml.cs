@@ -1,4 +1,4 @@
-﻿using com.myxmu.SCADASystem.Models;
+﻿using Model;
 using com.myxmu.SCADASystem.Services;
 using com.myxmu.SCADASystem.Views;
 using Common.Helpers;
@@ -20,6 +20,7 @@ namespace com.myxmu.SCADASystem
     /// </summary>
     public partial class App : Application
     {
+
         /// <summary>
         /// 向外暴露，Gets the current <see cref="App"/> instance in use
         /// </summary>
@@ -57,7 +58,7 @@ namespace com.myxmu.SCADASystem
             ServiceCollection services = new();
 
             //注入configuration
-            var configuration = InjectConfigure(services);
+            var configuration = InjectConfigure(services);            
 
             // 配置Log
             ConfigureLog(services, configuration);
@@ -70,6 +71,9 @@ namespace com.myxmu.SCADASystem
 
             // 注入视图和视图模型
             RegisterViewsAndViewModels(services);
+
+            //配置globalCOnfig
+            services.AddSingleton<GlobalConfig>();
 
             // 注入服务
             services.AddSingleton<UserSession>();

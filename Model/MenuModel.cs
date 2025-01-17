@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SqlSugar;
 
-namespace com.myxmu.SCADASystem.Models
+namespace Model
 {
     [SugarTable("menu")]
     public class MenuModel:EntityBase

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using com.myxmu.SCADASystem.Models;
+using Model;
 using Common.Helpers;
 
 namespace com.myxmu.SCADASystem.ViewModels
@@ -13,7 +13,7 @@ namespace com.myxmu.SCADASystem.ViewModels
     {
         public ShellViewModel()
         {
-            InitData();
+            InitData();            
         }
 
         /// <summary>

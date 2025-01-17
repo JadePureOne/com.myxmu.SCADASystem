@@ -3,7 +3,7 @@ using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using System.Windows.Controls;
-using com.myxmu.SCADASystem.Models;
+using Model;
 using System.Diagnostics;
 
 namespace com.myxmu.SCADASystem.Views
