@@ -219,6 +219,23 @@ namespace Common.Helpers
             }
         }
 
+
+        /// <summary>
+        /// 获取实时字典数值
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public T GetValue<T>(string key)
+        {
+            if (ReadDataDic.TryGetValue(key, out object value))
+            {
+                return (T)value;
+            }
+
+            return default;
+        }
+
         public void Dispose()
         {
         }

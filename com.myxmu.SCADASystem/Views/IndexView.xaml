@@ -340,7 +340,7 @@
                                 Height="50"
                                 materialDesign:ButtonAssist.CornerRadius="25 25 0 0"
                                 ToolTip="MaterialDesignRaisedAccentButton with Round Top Corners">
-                                <TextBlock Text="{Binding ScadaReadDataProp.DegreasingSprayPumpPressure}" />
+                                <TextBlock Text="{Binding ScadaReadData.DegreasingSprayPumpPressure}" />
                             </Button>
                             <TextBlock HorizontalAlignment="Center" Text="脱脂压力值" />
                         </StackPanel>
@@ -349,7 +349,7 @@
                                 Height="50"
                                 materialDesign:ButtonAssist.CornerRadius="25 25 0 0"
                                 ToolTip="MaterialDesignRaisedAccentButton with Round Top Corners">
-                                <TextBlock Text="{Binding ScadaReadDataProp.DegreasingPhValue}" />
+                                <TextBlock Text="{Binding ScadaReadData.DegreasingPhValue}" />
                             </Button>
                             <TextBlock HorizontalAlignment="Center" Text="脱脂pH值" />
                         </StackPanel>
