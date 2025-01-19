@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Common.Helpers;
 using CommunityToolkit.Mvvm.ComponentModel;
+using Microsoft.Extensions.Options;
 using Model;
 
 namespace com.myxmu.SCADASystem.ViewModels
@@ -18,14 +19,19 @@ namespace com.myxmu.SCADASystem.ViewModels
         private CancellationTokenSource _cts = new();
 
         private readonly GlobalConfig _globalConfig;
+        private readonly AppSetting _appSetting;
 
-        public IndexViewModel(GlobalConfig globalConfig)
+        public IndexViewModel(GlobalConfig globalConfig,IOptionsSnapshot<AppSetting> optionsSnapshot)
         {
             _globalConfig = globalConfig;
+            _appSetting = optionsSnapshot.Value;
             _globalConfig.InitPlcServer();
-            _globalConfig.StartCollectionAsync();
 
-            //采集完后，启动个实时读取 将globalConfig.ReadDataDic绑定到scadaReadDataModel
+            if(_appSetting.PlcParam.AutoCollect)
+            {
+                 _globalConfig.StartCollection();
+            }
+            //启动个实时读取 将globalConfig.ReadDataDic绑定到scadaReadDataModel
             //可以通过Reflect，因为ScadaReadDataModel属性名和字典key一模一样
             InitReadData2ScadaReadDataLoop();
         }

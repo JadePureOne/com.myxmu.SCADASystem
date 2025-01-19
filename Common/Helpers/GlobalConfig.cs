@@ -9,6 +9,9 @@ using System.IO;
 
 namespace Common.Helpers
 {
+    /// <summary>
+    /// PLC 通讯配置帮助类
+    /// </summary>
     public class GlobalConfig : IDisposable
     {
         public bool PlcConnected { get; set; }
@@ -100,7 +103,7 @@ namespace Common.Helpers
         /// </summary>
         /// <param name="externalToken"></param>
         /// <returns></returns>
-        public Task StartCollectionAsync(CancellationToken? externalToken = null)
+        public Task StartCollection(CancellationToken? externalToken = null)
         {
             StopCollection();
 
