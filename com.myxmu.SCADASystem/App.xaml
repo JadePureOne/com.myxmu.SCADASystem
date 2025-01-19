@@ -2,12 +2,17 @@
     x:Class="com.myxmu.SCADASystem.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:con="http://schemas.superdev.ch/valueconverters/2016/xaml"
     xmlns:converters="clr-namespace:com.myxmu.SCADASystem.Converters"
     xmlns:local="clr-namespace:com.myxmu.SCADASystem">
     <Application.Resources>
         <ResourceDictionary>
             <converters:RoleConvert x:Key="RoleConvert" />
             <converters:DateTimeConvert x:Key="DateTimeConvert" />
+            <con:BoolToStringConverter
+                x:Key="BoolToColorString"
+                FalseValue="Red"
+                TrueValue="Green" />
             <ResourceDictionary.MergedDictionaries>
                 <!--  MahApps  -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />

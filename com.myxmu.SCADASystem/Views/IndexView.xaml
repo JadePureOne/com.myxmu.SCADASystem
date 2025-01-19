@@ -161,16 +161,16 @@
                         FontSize="20"
                         Text="脱脂工位" />
                     <ucs:StatusIndicatorControl
-                        ButtonBackground="Green"
-                        IsIndeterminate="True"
+                        ButtonBackground="{Binding ScadaReadData.DegreasingSprayPumpStatus, Converter={StaticResource BoolToColorString}}"
+                        IsIndeterminate="{Binding ScadaReadData.DegreasingSprayPumpStatus}"
                         StatusText="脱脂喷淋泵运行状态" />
                     <ucs:StatusIndicatorControl
-                        ButtonBackground="Green"
-                        IsIndeterminate="False"
+                        ButtonBackground="{Binding ScadaReadData.DegreasingExhaustFanStatus, Converter={StaticResource BoolToColorString}}"
+                        IsIndeterminate="{Binding ScadaReadData.DegreasingExhaustFanStatus}"
                         StatusText="脱脂排风扇运行状态" />
                     <ucs:StatusIndicatorControl
-                        ButtonBackground="Red"
-                        IsIndeterminate="True"
+                        ButtonBackground="{Binding ScadaReadData.RoughWashSprayPumpStatus, Converter={StaticResource BoolToColorString}}"
+                        IsIndeterminate="{Binding ScadaReadData.RoughWashSprayPumpStatus}"
                         StatusText="脱脂低液位运行状态" />
                 </StackPanel>
             </Border>
