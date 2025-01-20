@@ -14,8 +14,91 @@
     FontFamily="Microsoft YaHei"
     TextElement.FontSize="16"
     TextElement.FontWeight="Regular"
+    TextElement.Foreground="White"
     mc:Ignorable="d">
     <Grid>
-        <TextBlock Text="deviceview" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="45" />
+            <RowDefinition Height="4*" />
+            <RowDefinition Height="10*" />
+        </Grid.RowDefinitions>
+
+        <Border Background="#009688">
+            <TextBlock
+                HorizontalAlignment="Center"
+                FontSize="30"
+                Foreground="White"
+                Text="产线总控制" />
+        </Border>
+
+
+        <Border
+            Grid.Row="1"
+            BorderBrush="#50a0ff"
+            BorderThickness="1">
+            <UniformGrid Rows="1">
+                <Button
+                    Width="200"
+                    Height="100"
+                    Margin="10"
+                    materialDesign:ButtonProgressAssist.IsIndeterminate="True"
+                    materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
+                    materialDesign:ButtonProgressAssist.Value="-1"
+                    Background="LimeGreen"
+                    Command="{Binding WriteDeviceControlCommand}"
+                    CommandParameter="TotalStart"
+                    Content="总启动"
+                    FontSize="40" />
+                <Button
+                    Width="200"
+                    Height="100"
+                    Margin="10"
+                    materialDesign:ButtonProgressAssist.IsIndeterminate="True"
+                    materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
+                    materialDesign:ButtonProgressAssist.Value="-1"
+                    Background="Red"
+                    Command="{Binding WriteDeviceControlCommand}"
+                    CommandParameter="TotalStop"
+                    Content="总停止"
+                    FontSize="40" />
+                <Button
+                    Width="200"
+                    Height="100"
+                    Margin="10"
+                    materialDesign:ButtonProgressAssist.IsIndeterminate="True"
+                    materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
+                    materialDesign:ButtonProgressAssist.Value="-1"
+                    Background="#50a0ff"
+                    Command="{Binding WriteDeviceControlCommand}"
+                    CommandParameter="MechanicalReset"
+                    Content="机械复位"
+                    FontSize="40" />
+                <Button
+                    Width="200"
+                    Height="100"
+                    Margin="10"
+                    materialDesign:ButtonProgressAssist.IsIndeterminate="True"
+                    materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
+                    materialDesign:ButtonProgressAssist.Value="-1"
+                    Background="#febf57"
+                    Command="{Binding WriteDeviceControlCommand}"
+                    CommandParameter="AlarmReset"
+                    Content="报警复位"
+                    FontSize="40" />
+                <Button
+                    Width="200"
+                    Height="100"
+                    Margin="10"
+                    materialDesign:ButtonProgressAssist.IsIndeterminate="True"
+                    materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
+                    materialDesign:ButtonProgressAssist.Value="-1"
+                    Background="#414141"
+                    Command="{Binding WriteDeviceControlCommand}"
+                    CommandParameter="IdleRun"
+                    Content="空体运行"
+                    FontSize="40" />
+            </UniformGrid>
+        </Border>
+
     </Grid>
 </UserControl>
