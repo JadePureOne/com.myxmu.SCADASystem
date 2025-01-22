@@ -5,6 +5,7 @@ using Microsoft.Extensions.Options;
 using MiniExcelLibs;
 using Model;
 using System.Collections.Concurrent;
+using System.Diagnostics;
 using System.IO;
 
 namespace Common.Helpers
@@ -29,6 +30,10 @@ namespace Common.Helpers
         private readonly ILogger<GlobalConfig> _logger;
 
         private CancellationTokenSource _cts = new();
+        private CancellationTokenSource _ctsSave = new();
+
+        private ConcurrentQueue<ScadaReadDataModel> _scadaReadDataQueue = new();
+
 
         public GlobalConfig(IOptionsSnapshot<AppSetting> options, ILogger<GlobalConfig> logger)
         {
@@ -122,6 +127,8 @@ namespace Common.Helpers
                         await UpdateMonitorData();
                         await UpdateProcessData();
 
+                        await SaveData2DBAsync();
+
                         await Task.Delay(_options.Value.PlcParam.PlcCycleInterval, _cts.Token);
                     }
                     catch (Exception e)
@@ -130,6 +137,70 @@ namespace Common.Helpers
                     }
                 }
             }, _cts.Token);
+        }
+
+
+        /// <summary>
+        /// 最好加一个上升沿用于触发，不然数据库中的数据会有很多
+        /// </summary>
+        private void InitDequeue()
+        {
+            Task.Run(async () => {
+                while (!_ctsSave.Token.IsCancellationRequested)
+                {
+                    try
+                    {
+                        // 从队列中取出数据
+                        if (_scadaReadDataQueue.TryDequeue(out var data))
+                        {
+                            // 往数据库里面写
+                            await SqlSugarHelper.Db.Insertable(data).ExecuteCommandAsync();
+                        }
+                        else
+                        {
+                            await Task.Delay(100, _ctsSave.Token);
+                        }
+
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.WriteLine(e);
+                    }
+                }
+            }, _ctsSave.Token);
+        }
+
+
+        /// <summary>
+        /// 不是直接往数据库里面写，而是先写入到队列中，然后再（批量）写入到数据库
+        /// </summary>
+        /// <returns></returns>
+        private async Task SaveData2DBAsync()
+        {
+            var saveAddress = ReadEntities
+             .Where(x => x.Save).ToList();
+
+            if (!saveAddress.Any()) return;
+
+            // 创建新的数据对象
+            var scadaReadData = new ScadaReadDataModel ()
+            {
+                CreateDateTime = DateTime.Now,
+                UpDateTime = DateTime.Now,
+            };
+
+            foreach (var address in saveAddress)
+            {
+                var property = typeof(ScadaReadDataModel).GetProperty(address.En);
+
+                if (property != null && ReadDataDic.TryGetValue(address.En, out var value))
+                {
+                    property.SetValue(scadaReadData, value);
+                }
+            }
+
+            // 将数据添加到队列中
+            _scadaReadDataQueue.Enqueue(scadaReadData);
         }
 
         private async Task UpdateProcessData()
@@ -214,6 +285,23 @@ namespace Common.Helpers
                 {
                     _cts.Cancel();
                     _cts.Dispose();
+                }
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e.Message);
+            }
+        }
+
+
+        public void StopSave()
+        {
+            try
+            {
+                if (_ctsSave != null)
+                {
+                    _ctsSave.Cancel();
+                    _ctsSave.Dispose();
                 }
             }
             catch (Exception e)
