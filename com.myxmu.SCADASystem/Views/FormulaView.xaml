@@ -84,7 +84,7 @@
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="MouseLeftButtonDown">
                                         <!--  命令的binding不是当前的ItemsControl的DataContext,而在  -->
-                                        <i:InvokeCommandAction Command="{Binding DataContext.SelectFormulaCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}" CommandParameter="{Binding}" />
+                                        <i:InvokeCommandAction Command="{Binding DataContext.SelectFormulaCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}" />
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                                 <Grid>
