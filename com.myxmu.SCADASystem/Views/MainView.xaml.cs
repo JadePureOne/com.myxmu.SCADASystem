@@ -22,7 +22,7 @@ namespace com.myxmu.SCADASystem.Views
 
         private void InitData()
         {
-            this.DataContext = App.current.Services.GetService<MainViewModel>();
+            this.DataContext = App.Current.Services.GetService<MainViewModel>();
         }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace com.myxmu.SCADASystem.Views
         {
 
             // 初始化默认页面
-            Page.Content = App.current.Services.GetService<IndexView>();
+            Page.Content = App.Current.Services.GetService<IndexView>();
 
             // 注册消息
             WeakReferenceMessenger.Default.Register<MenuModel>(this, (sender, arg) =>
@@ -47,7 +47,7 @@ namespace com.myxmu.SCADASystem.Views
                 if (type != null)
                 {
                     // 使用非泛型版本的 GetService 方法
-                    var view = App.current.Services.GetService(type);
+                    var view = App.Current.Services.GetService(type);
                     if (view != null)
                     {
                         // 设置 Page.Content 为动态加载的视图

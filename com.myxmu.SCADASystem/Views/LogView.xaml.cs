@@ -31,7 +31,7 @@ namespace com.myxmu.SCADASystem.Views
 
         private void Init()
         {
-            this.DataContext=App.current.Services.GetService<LogViewModel>();
+            this.DataContext=App.Current.Services.GetService<LogViewModel>();
         }
     }
 }

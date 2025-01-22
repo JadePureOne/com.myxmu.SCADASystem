@@ -23,7 +23,7 @@ namespace com.myxmu.SCADASystem.Services
 
         public void ShowMessageBox(string header, MessageBoxButton btn = MessageBoxButton.OK)
         {
-            App.current.Dispatcher.Invoke(() =>
+            App.Current.Dispatcher.Invoke(() =>
             {
                 DialogHost.Show(new MsgBox(header, btn), "ShellDialog");
             });

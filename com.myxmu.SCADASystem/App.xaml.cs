@@ -22,9 +22,9 @@ namespace com.myxmu.SCADASystem
     {
 
         /// <summary>
-        /// 向外暴露，Gets the current <see cref="App"/> instance in use
+        /// 向外暴露，Gets the Current <see cref="App"/> instance in use
         /// </summary>
-        public static App current = (App)Application.Current;
+        public static App Current = (App)Application.Current;
 
         /// <summary>
         /// Gets the <see cref="IServiceProvider"/> instance to resolve application services.

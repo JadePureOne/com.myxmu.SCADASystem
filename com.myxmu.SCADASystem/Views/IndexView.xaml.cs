@@ -30,7 +30,7 @@ namespace com.myxmu.SCADASystem.Views
 
         private void InitData()
         {
-            this.DataContext = App.current.Services.GetService<IndexViewModel>();
+            this.DataContext = App.Current.Services.GetService<IndexViewModel>();
         }
     }
 }

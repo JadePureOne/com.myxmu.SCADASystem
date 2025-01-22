@@ -26,7 +26,7 @@
         <!--  PLC  -->
         <Border BorderBrush="#546e7a" BorderThickness="1">
             <StackPanel>
-                <Button Content="保存参数" Style="{DynamicResource TulingButtonStyle}" />
+                <Button Content="保存参数" Style="{DynamicResource MyButtonStyle}" />
                 <StackPanel Orientation="Horizontal">
                     <StackPanel Margin="10" Orientation="Horizontal">
                         <Label
@@ -145,7 +145,7 @@
             BorderBrush="#546e7a"
             BorderThickness="1">
             <StackPanel>
-                <Button Content="保存系统参数" Style="{DynamicResource TulingButtonStyle}" />
+                <Button Content="保存系统参数" Style="{DynamicResource MyButtonStyle}" />
                 <StackPanel Orientation="Horizontal">
                     <StackPanel Margin="10" Orientation="Horizontal">
                         <Label

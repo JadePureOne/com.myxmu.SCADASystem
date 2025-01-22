@@ -17,7 +17,7 @@ namespace com.myxmu.SCADASystem.Views
 
         private void InitData()
         {
-            this.DataContext = App.current.Services.GetService<UserViewModel>();
+            this.DataContext = App.Current.Services.GetService<UserViewModel>();
         }
     }
 }

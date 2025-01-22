@@ -27,12 +27,12 @@ namespace com.myxmu.SCADASystem.Views
         private void LoadLoginWindow()
         {
             //get login view
-            container.Content = App.current.Services.GetService<LoginView>();
+            container.Content = App.Current.Services.GetService<LoginView>();
 
             //if success login, show main window(message note from LoginViewModel)
             WeakReferenceMessenger.Default.Register<LoginMsg>(this, (sender, args) =>
             {
-                container.Content = App.current.Services.GetService<MainView>();
+                container.Content = App.Current.Services.GetService<MainView>();
                 Width = 1200;
                 Height = 800;
                 // 设置窗体弹出的坐标位置
@@ -43,7 +43,7 @@ namespace com.myxmu.SCADASystem.Views
             WeakReferenceMessenger.Default.Register<LoginOutMsg>(this, (sender, args) =>
             {
 
-                container.Content = App.current.Services.GetService<LoginView>();
+                container.Content = App.Current.Services.GetService<LoginView>();
                 Width = 800;
                 Height = 450;
                 // 设置窗体弹出的坐标位置
@@ -60,7 +60,7 @@ namespace com.myxmu.SCADASystem.Views
 
         private void InitData()
         {
-            this.DataContext = App.current.Services.GetService<ShellViewModel>();
+            this.DataContext = App.Current.Services.GetService<ShellViewModel>();
         }
     }
 }

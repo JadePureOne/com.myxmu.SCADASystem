@@ -29,7 +29,57 @@ namespace com.myxmu.SCADASystem.ViewModels
                 //2. 建表
                 //SqlSugarHelper.Db.CodeFirst.InitTables<UserModel>();
                 //SqlSugarHelper.Db.CodeFirst.InitTables<MenuModel>();
-                SqlSugarHelper.Db.CodeFirst.InitTables<ScadaReadDataModel>();
+                //SqlSugarHelper.Db.CodeFirst.InitTables<ScadaReadDataModel>();
+                SqlSugarHelper.Db.CodeFirst.InitTables<FormulaEntity>();
+            }
+
+            //insert rcp data
+            if (false)
+            {
+                // 插入数据 
+                var formulaEntityList = new List<FormulaEntity>();
+
+                for (int i = 0; i < 10; i++)
+                {
+                    var formulaEntity = new FormulaEntity()
+                    {
+                        Name = "配方" + i,
+                        Description = "配方描述" + i,
+                        IsSelected = false,
+                        DegreasingSetPressureUpperLimit
+                            = GetRandomFloat(0.5f, 5.0f),
+                        DegreasingSetPressureLowerLimit
+                            = GetRandomFloat(6.0f, 9.0f),
+                        RoughWashingSprayPumpOverloadUpperLimit
+                            = GetRandomFloat(1.0f, 4.0f),
+                        RoughWashingLevelLowerLimit
+                            = GetRandomFloat(0.8f, 3.5f),
+                        CeramicCoatingSprayPumpOverloadUpperLimit
+                            = GetRandomFloat(4.0f, 7.0f),
+                        FineWashingSprayPumpOverloadUpperLimit
+                            = GetRandomFloat(1.2f, 4.5f),
+                        FineWashingLevelLowerLimit
+                            = GetRandomFloat(40.0f, 80.0f),
+                        MoistureFurnaceTemperatureUpperLimit
+                            = GetRandomFloat(120.0f, 200.0f),
+                        MoistureFurnaceTemperatureLowerLimit
+                            = GetRandomFloat(120.0f, 200.0f),
+                        CoolingRoomCentrifugalFanOverloadUpperLimit
+                            = GetRandomFloat(120.0f, 200.0f),
+                        CuringOvenTemperatureUpperLimit
+                            = GetRandomFloat(120.0f, 200.0f),
+                        CuringOvenTemperatureLowerLimit
+                            = GetRandomFloat(120.0f, 200.0f),
+                        ConveyorSetSpeed = GetRandomFloat(120.0f, 200.0f),
+                        ConveyorSetFrequency = GetRandomFloat(120.0f, 200.0f),
+
+                        CreateDateTime = DateTime.Now,
+                        UpDateTime = DateTime.Now,
+                    };
+                    formulaEntityList.Add(formulaEntity);
+                }
+
+                SqlSugarHelper.Db.Insertable(formulaEntityList).ExecuteCommand();
             }
 
             //insert menu data
