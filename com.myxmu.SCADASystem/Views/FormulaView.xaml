@@ -22,6 +22,7 @@
             <RowDefinition Height="auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
+        <!--  tool bar  -->
         <Border BorderBrush="#546e7a" BorderThickness="1">
             <StackPanel
                 Margin="5"
@@ -64,5 +65,133 @@
                     Style="{DynamicResource MyButtonStyle}" />
             </StackPanel>
         </Border>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+
+            <ScrollViewer Grid.Row="0">
+                <ItemsControl Margin="5" ItemsSource="{Binding FormulaList}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <materialDesign:Card
+                                Margin="0,0,0,10"
+                                Background="{Binding IsSelected, Converter={StaticResource Bool2Bg}}"
+                                Cursor="Hand"
+                                UniformCornerRadius="8">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <!--  命令的binding不是当前的ItemsControl的DataContext,而在  -->
+                                        <i:InvokeCommandAction Command="{Binding DataContext.SelectFormulaCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}" CommandParameter="{Binding}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <!--  配方图标  -->
+                                    <materialDesign:PackIcon
+                                        Width="80"
+                                        Height="80"
+                                        Margin="20"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Kind="FileDocument" />
+                                    <StackPanel
+                                        Grid.Column="1"
+                                        Margin="8"
+                                        VerticalAlignment="Center">
+                                        <TextBlock
+                                            FontSize="18"
+                                            FontWeight="Bold"
+                                            Text="{Binding Name}"
+                                            TextAlignment="Left" />
+                                        <TextBlock
+                                            FontSize="18"
+                                            FontWeight="Bold"
+                                            Text="{Binding Description}"
+                                            TextAlignment="Left"
+                                            TextWrapping="Wrap" />
+                                        <TextBlock
+                                            FontSize="18"
+                                            FontWeight="Bold"
+                                            Text="{Binding CreateDateTime}"
+                                            TextAlignment="Left" />
+                                    </StackPanel>
+                                </Grid>
+                            </materialDesign:Card>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+
+            <!--  params info  -->
+            <Border
+                Grid.Column="1"
+                BorderBrush="#546e7a"
+                BorderThickness="1">
+                <StackPanel>
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                        <TextBlock Margin="10" Text="配方名称：" />
+                        <TextBox
+                            Width="180"
+                            Margin="10"
+                            Text="{Binding CurrentFormula.Name}" />
+                        <TextBlock Margin="10" Text="配方描述：" />
+                        <TextBox
+                            Width="180"
+                            Margin="10"
+                            Text="{Binding CurrentFormula.Description}" />
+                    </StackPanel>
+                    <UniformGrid Columns="2">
+                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                            <TextBlock Margin="10" Text="脱脂压力上限值：" />
+                            <TextBox
+                                Width="180"
+                                Margin="10"
+                                Text="{Binding CurrentFormula.DegreasingSetPressureUpperLimit}" />
+                        </StackPanel>
+                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                            <TextBlock Margin="10" Text="脱脂压力下限值 ：" />
+                            <TextBox
+                                Width="180"
+                                Margin="10"
+                                Text="{Binding CurrentFormula.DegreasingSetPressureLowerLimit}" />
+                        </StackPanel>
+                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                            <TextBlock Margin="10" Text="粗洗过载上限值 ：" />
+                            <TextBox
+                                Width="180"
+                                Margin="10"
+                                Text="{Binding CurrentFormula.RoughWashingSprayPumpOverloadUpperLimit}" />
+                        </StackPanel>
+                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                            <TextBlock Margin="10" Text="脱脂压力上限值：" />
+                            <TextBox Width="180" Margin="10" />
+                        </StackPanel>
+                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                            <TextBlock Margin="10" Text="脱脂压力上限值：" />
+                            <TextBox Width="180" Margin="10" />
+                        </StackPanel>
+                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                            <TextBlock Margin="10" Text="脱脂压力上限值：" />
+                            <TextBox Width="180" Margin="10" />
+                        </StackPanel>
+                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                            <TextBlock Margin="10" Text="脱脂压力上限值：" />
+                            <TextBox Width="180" Margin="10" />
+                        </StackPanel>
+                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                            <TextBlock Margin="10" Text="脱脂压力上限值：" />
+                            <TextBox Width="180" Margin="10" />
+                        </StackPanel>
+                    </UniformGrid>
+                </StackPanel>
+            </Border>
+        </Grid>
     </Grid>
 </UserControl>

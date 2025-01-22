@@ -9,10 +9,16 @@
         <ResourceDictionary>
             <converters:RoleConvert x:Key="RoleConvert" />
             <converters:DateTimeConvert x:Key="DateTimeConvert" />
+
+            <!--  convert  -->
             <con:BoolToStringConverter
                 x:Key="BoolToColorString"
                 FalseValue="Red"
                 TrueValue="Green" />
+            <con:BoolToStringConverter
+                x:Key="Bool2Bg"
+                FalseValue="White"
+                TrueValue="#E3F2FD" />
             <ResourceDictionary.MergedDictionaries>
                 <!--  MahApps  -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
