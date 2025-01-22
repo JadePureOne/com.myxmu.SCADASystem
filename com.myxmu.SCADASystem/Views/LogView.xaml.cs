@@ -1,4 +1,6 @@
-﻿using System;
+﻿using com.myxmu.SCADASystem.ViewModels;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+
 namespace com.myxmu.SCADASystem.Views
 {
     /// <summary>
@@ -23,6 +26,12 @@ namespace com.myxmu.SCADASystem.Views
         public LogView()
         {
             InitializeComponent();
+            Init();
+        }
+
+        private void Init()
+        {
+            this.DataContext=App.current.Services.GetService<LogViewModel>();
         }
     }
 }
