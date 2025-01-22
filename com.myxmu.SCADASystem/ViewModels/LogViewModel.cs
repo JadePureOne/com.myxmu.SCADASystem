@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,6 +19,52 @@ namespace com.myxmu.SCADASystem.ViewModels
 
         [ObservableProperty]
         FileInfo _selectedLogFile;
+
+        partial void OnSelectedLogFileChanged(FileInfo value)
+        {
+            //if (value != null)
+            //{
+            //    //ObservableCollection<LogEntry> entries = new ();
+            //    var lines = File.ReadAllLines(path: value.FullName);
+            //    foreach (var line in lines)
+            //    {
+            //        var entry = LogEntry.Parse(line);
+            //        if (entry != null)
+            //        {
+            //            LogEntries.Add(entry);
+            //        }
+            //    }
+            //}
+            LogEntries.Clear();
+            if (value != null)
+            {
+                try
+                {
+                    // Open the file for reading with shared access
+                    using (var fileStream = new FileStream(value.FullName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                    using (var reader = new StreamReader(fileStream))
+                    {
+                        string line;
+                        while ((line = reader.ReadLine()) != null)
+                        {
+                            var entry = LogEntry.Parse(line);
+                            if (entry != null)
+                            {
+                                LogEntries.Add(entry);
+                            }
+                        }
+                    }
+                }
+                catch (IOException ex)
+                {
+                    // Handle the exception (e.g., log it or show a message to the user)
+                    Console.WriteLine($"An error occurred while reading the file: {ex.Message}");
+                }
+            }
+        }
+
+        [ObservableProperty]
+        ObservableCollection<LogEntry> _logEntries = new();    
 
         [RelayCommand]
         void OpenLogFolder() 

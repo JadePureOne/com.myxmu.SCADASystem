@@ -71,5 +71,46 @@
                 </StackPanel>
             </StackPanel>
         </Border>
+        <Border
+            Grid.Column="1"
+            BorderBrush="#546e7a"
+            BorderThickness="1">
+            <DockPanel>
+                <TextBlock
+                    Background="#546e7a"
+                    DockPanel.Dock="Top"
+                    FontSize="16"
+                    Foreground="White"
+                    Text="日志内容"
+                    TextAlignment="Center" />
+
+                <!--  显示所有的日志内容  -->
+                <ListView
+                    Margin="5"
+                    ItemsSource="{Binding LogEntries}"
+                    ScrollViewer.VerticalScrollBarVisibility="Auto">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn
+                                Width="200"
+                                DisplayMemberBinding="{Binding Timestamp}"
+                                Header="时间" />
+                            <GridViewColumn
+                                Width="100"
+                                DisplayMemberBinding="{Binding Level}"
+                                Header="级别" />
+                            <GridViewColumn
+                                Width="150"
+                                DisplayMemberBinding="{Binding Logger}"
+                                Header="来源" />
+                            <GridViewColumn
+                                Width="150"
+                                DisplayMemberBinding="{Binding Message}"
+                                Header="内容" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </DockPanel>
+        </Border>
     </Grid>
 </UserControl>
