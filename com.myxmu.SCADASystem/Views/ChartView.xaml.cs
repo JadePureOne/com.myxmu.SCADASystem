@@ -1,4 +1,6 @@
-﻿using System;
+﻿using com.myxmu.SCADASystem.ViewModels;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +22,19 @@ namespace com.myxmu.SCADASystem.Views
     /// </summary>
     public partial class ChartView : UserControl
     {
+
+        private  readonly ChartViewModel _chartViewModel;
         public ChartView()
         {
             InitializeComponent();
+            _chartViewModel= App.Current.Services.GetService<ChartViewModel>();
+            DataContext = _chartViewModel;
+            Loaded += ChartView_Loaded;
+        }
+
+        private void ChartView_Loaded(object sender, RoutedEventArgs e)
+        {
+            _chartViewModel.InitPlot(WpfPlotShow);
         }
     }
 }

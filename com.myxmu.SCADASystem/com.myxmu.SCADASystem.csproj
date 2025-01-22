@@ -36,6 +36,7 @@
     <PackageReference Include="Microsoft.Extensions.Options" Version="9.0.0" />
     <PackageReference Include="MiniExcel" Version="1.36.0" />
     <PackageReference Include="NLog.Extensions.Logging" Version="5.3.15" />
+    <PackageReference Include="ScottPlot.WPF" Version="5.0.53" />
     <PackageReference Include="SqlSugarCore" Version="5.1.4.172" />
     <PackageReference Include="ValueConverters" Version="3.1.22" />
     <PackageReference Include="Verify.CommunityToolkit.Mvvm" Version="0.1.0" />
